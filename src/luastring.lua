@@ -148,6 +148,7 @@ local luabools = {
 
 local strrep = string.rep
 local strsub = string.sub
+local strchr = string.char
 local strgsub = string.gsub
 local strfind = string.find
 local mathciel = math.ceil
@@ -155,6 +156,7 @@ local strlower = string.lower
 local strupper = string.upper
 local tostring = tostring
 local strgmatch = string.gmatch
+local mathrandom = math.random
 local strreverse = string.reverse
 local tableconcat = table.concat
 
@@ -642,6 +644,32 @@ function luastring.translate(str, translation_table)
         newstr[newlen] = translation_table[character] or character
     end
     return tableconcat(newstr)
+end
+
+--- Generates a random string from the ASCII-printable (32-126) byte range.
+-- @tparam number length The desired length of your randomized string.
+-- @tparam table excluded_chars A character map of characters to exclude from the randomized string. Example below.
+-- @usage
+-- local excluded_chars = {
+--     [" "] = 0, -- Exclude spaces.
+--     ["'"] = 0, -- Exclude single-width commas.
+-- }
+-- local randomized = luastring.randomstring(41, excluded_chars)
+-- print(randomized) -- *@K@iuX}jN?atGfi|4?};wipr[~o6ORKHdou*OPZ8
+-- @treturn string
+function luastring.randomstring(length, excluded_chars)
+    local res = {}
+    excluded_chars = excluded_chars or {}
+
+    for i = 1, length do
+        local char = strchr(mathrandom(32, 126))
+        while excluded_chars[char] ~= nil do
+            char = strchr(mathrandom(32, 126))
+        end
+        res[i] = char
+    end
+
+    return tableconcat(res)
 end
 
 --- Constants
