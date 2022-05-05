@@ -1,6 +1,8 @@
 # LuaString
 A stand-alone extension of string operations for Lua. Written in pure Lua for excellent compatibility, maintainability, and guaranteed portability.
 
+Read the <a href="https://well-in-that-case.github.io/LuaString/">documentation</a> here.
+
 # Performance
 The performance standard for LuaString is to meet or exceed the runtime performance of Penlight. On average, LuaString seems ~30% faster on all fronts. There will be official benchmark specifications once LuaString continues to mature.
 
