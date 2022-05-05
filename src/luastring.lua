@@ -248,7 +248,12 @@ end
 -- @tparam string str The string to search.
 -- @tparam string substr The substring to search <code>str</code> for.
 function luastring.lfind(str, substr)
-    return strfind(str, substr, 1, true)
+    local idx, _ = strfind(str, substr, 1, true)
+    if idx then
+        return idx - 1
+    else
+        return nil
+    end
 end
 
 --- Find the index of the last occurance of <code>substr</code> inside of <code>str</code>.
