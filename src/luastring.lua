@@ -672,6 +672,49 @@ function luastring.randomstring(length, excluded_chars)
     return tableconcat(res)
 end
 
+--- Iterators
+-- @section iterators
+
+--- An iterator for every byte (or in ASCII, character) inside of this string.
+-- This function loops backward from the end of the string.
+-- @tparam string str The string to loop over.
+-- @usage
+-- local str = "hello world"
+-- for letter in luastring.iter_end(str) do
+--     print(letter)
+-- end
+-- @treturn function
+function luastring.iter_end(str)
+    local last = #str + 1
+    return function ()
+        last = last - 1
+        local c = string.sub(str, last, last)
+        if c ~= "" then
+            return c
+        end
+    end
+end
+
+--- An iterator for every byte (or in ASCII, character) inside of this string.
+-- This function loops forward from the start of the string.
+-- @tparam string str The string to loop over.
+-- @usage
+-- local str = "hello world"
+-- for letter in luastring.iter_begin(str) do
+--     print(letter)
+-- end
+-- @treturn function
+function luastring.iter_begin(str)
+    local last = 0
+    return function ()
+        last = last + 1
+        local c = strsub(str, last, last)
+        if c ~= "" then
+            return c
+        end
+    end
+end
+
 --- Constants
 -- @section fields
 
