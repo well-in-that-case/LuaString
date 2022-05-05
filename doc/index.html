@@ -123,6 +123,14 @@
 	<td class="summary">Creates a new title-case string from <code>str</code>.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#commaify">commaify (str)</a></td>
+	<td class="summary">Converts a number to a more human-readable value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#strip">strip (str, chars)</a></td>
+	<td class="summary">Strips any character from within <code>chars</code> from both sides of the string.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#lstrip">lstrip (str, chars)</a></td>
 	<td class="summary">Strips any character from within <code>chars</code> from the left-side of the string.</td>
 	</tr>
@@ -137,6 +145,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#partition">partition (str, delimiter)</a></td>
 	<td class="summary">Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rpartition">rpartition (str, delimiter)</a></td>
+	<td class="summary">Splits a string into two parts:
+ one part before the first right-side occurance of <code>delimiter</code>, and one after.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ljustify">ljustify (str, character, len)</a></td>
@@ -704,6 +717,75 @@
 
 </dd>
     <dt>
+    <a name = "commaify"></a>
+    <strong>commaify (str)</strong>
+    </dt>
+    <dd>
+    Converts a number to a more human-readable value.
+ For example, <code>"100000"</code> will become <code>"100,000"</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         The number to parse.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "strip"></a>
+    <strong>strip (str, chars)</strong>
+    </dt>
+    <dd>
+    Strips any character from within <code>chars</code> from both sides of the string.
+ This stops once a character not meant to be removed is discovered.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to strip.
+        </li>
+        <li><span class="parameter">chars</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string of characters to strip from <code>str</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.strip(<span class="string">"?hello world?"</span>, <span class="string">"?"</span>) == <span class="string">"hello world"</span></pre></li>
+        <li><pre class="example">luastring.strip(<span class="string">"!?hello world?!"</span>, <span class="string">"?!"</span>) == <span class="string">"hello world"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
     <a name = "lstrip"></a>
     <strong>lstrip (str, chars)</strong>
     </dt>
@@ -851,6 +933,48 @@
 
 <span class="keyword">local</span> before, after = luastring.partition(<span class="string">"doesn't contain"</span>, <span class="string">"!"</span>)
 <span class="global">assert</span>(before == <span class="string">"doesn't contain"</span>)
+<span class="global">assert</span>(after == <span class="keyword">nil</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rpartition"></a>
+    <strong>rpartition (str, delimiter)</strong>
+    </dt>
+    <dd>
+    Splits a string into two parts:
+ one part before the first right-side occurance of <code>delimiter</code>, and one after.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to partition.
+        </li>
+        <li><span class="parameter">delimiter</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The delimiter to partition the string upon.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string,string</a> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string,nil</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> before, after = luastring.rpartition(<span class="string">"hello?there?world"</span>, <span class="string">"?"</span>)
+<span class="global">assert</span>(before == <span class="string">"hello?there"</span>)
+<span class="global">assert</span>(after == <span class="string">"world"</span>)
+
+<span class="keyword">local</span> before, after = luastring.rpartition(<span class="string">"hello?there?world"</span>, <span class="string">"."</span>)
+<span class="global">assert</span>(before == <span class="string">"hello?there?world"</span>)
 <span class="global">assert</span>(after == <span class="keyword">nil</span>)</pre>
     </ul>
 
@@ -1240,7 +1364,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-05-04 21:45:22 </i>
+<i style="float:right;">Last updated 2022-05-04 22:36:38 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

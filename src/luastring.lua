@@ -138,10 +138,12 @@ local ascii_octals = {
 
 local strrep = string.rep
 local strsub = string.sub
+local strgsub = string.gsub
 local strfind = string.find
 local mathciel = math.ceil
 local strlower = string.lower
 local strupper = string.upper
+local tostring = tostring
 local strgmatch = string.gmatch
 local strreverse = string.reverse
 local tableconcat = table.concat
@@ -352,6 +354,43 @@ function luastring.title(str)
     return tableconcat(res)
 end
 
+--- Converts a number to a more human-readable value.
+-- For example, <code>"100000"</code> will become <code>"100,000"</code>.
+-- @tparam string|number str The number to parse.
+-- @usage luastring.commaify("10000000") == "10,000,000"
+-- @treturn string
+function luastring.commaify(str)
+    -- http://lua-users.org/wiki/FormattingNumbers
+    local k
+    local formatted = tostring(str)
+    while true do
+        formatted, k = strgsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+        if k == 0 then
+            break
+        end
+    end
+    return formatted
+end
+
+--- Strips any character from within <code>chars</code> from both sides of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage luastring.strip("?hello world?", "?") == "hello world"
+-- @usage luastring.strip("!?hello world?!", "?!") == "hello world"
+-- @treturn string
+function luastring.strip(str, chars)
+    local _, where = strfind(str, "[^" .. chars .. "+]")
+    str = strsub(str, (where or #str))
+    local tmp = strreverse(str)
+    _, where = strfind(tmp, "[^" .. chars .. "+]")
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, #tmp - where + 1)
+    end
+end
+
 --- Strips any character from within <code>chars</code> from the left-side of the string.
 -- This stops once a character not meant to be removed is discovered.
 -- @tparam string str The string to strip.
@@ -418,6 +457,29 @@ function luastring.partition(str, delimiter)
         return str
     else
         return strsub(str, 1, where - 1), strsub(str, where + 1)
+    end
+end
+
+--- Splits a string into two parts:
+-- one part before the first right-side occurance of <code>delimiter</code>, and one after.
+-- @tparam string str The string to partition.
+-- @tparam string delimiter The delimiter to partition the string upon.
+-- @usage
+-- local before, after = luastring.rpartition("hello?there?world", "?")
+-- assert(before == "hello?there")
+-- assert(after == "world")
+--
+-- local before, after = luastring.rpartition("hello?there?world", ".")
+-- assert(before == "hello?there?world")
+-- assert(after == nil)
+-- @treturn string,string|string,nil
+function luastring.rpartition(str, delimiter)
+    local _, where = strfind(strreverse(str), strreverse(delimiter), 1, true)
+    if where == nil then
+        return str
+    else
+        local offset = #str - where
+        return strsub(str, 1, offset), strsub(str, offset + 2)
     end
 end
 
