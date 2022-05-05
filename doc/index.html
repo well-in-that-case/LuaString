@@ -1,0 +1,1247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Predicates">Predicates </a></li>
+<li><a href="#Manipulation">Manipulation </a></li>
+<li><a href="#Constants">Constants </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>luastring</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>luastring</code></h1>
+<p>A stand-alone extension of string operations for Lua.</p>
+<p>
+ Written in pure Lua for excellent compatibility, maintainability, and guaranteed portability.
+ <br><br>
+ <i>LuaString is an extension of the <code>string</code> library:</i></p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">local string = require(&quot;luastring&quot;)
+</pre>
+    </ul>
+
+
+<h2><a href="#Predicates">Predicates </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#isdigit">isdigit (str)</a></td>
+	<td class="summary">Checks if every byte of this string is a valid ASCII digit.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isascii">isascii (str)</a></td>
+	<td class="summary">Checks if every byte of this string is within the valid ASCII byte range.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#islower">islower (str)</a></td>
+	<td class="summary">Checks if every byte of this string is a valid ASCII lowercase alphabetic character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isalpha">isalpha (str)</a></td>
+	<td class="summary">Checks if every byte of this string is a valid ASCII alphabetic character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isupper">isupper (str)</a></td>
+	<td class="summary">Checks if every byte of this string is a valid ASCII uppercase alphabetic character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isalnum">isalnum (str)</a></td>
+	<td class="summary">Checks if every byte of this string is a valid ASCII alphanumeric character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isidentifier">isidentifier (str)</a></td>
+	<td class="summary">Checks if this string is a valid Lua identifier.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lfind">lfind (str, substr)</a></td>
+	<td class="summary">Find the index of the first occurance of <code>substr</code> inside of <code>str</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rfind">rfind (str, substr)</a></td>
+	<td class="summary">Find the index of the last occurance of <code>substr</code> inside of <code>str</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iswhitespace">iswhitespace (str)</a></td>
+	<td class="summary">Checks if this string is entirely composed of ASCII whitespace characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#count">count (str, substr)</a></td>
+	<td class="summary">Counts how many times <code>substr</code> appears inside <code>str</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#contains">contains (str, substr)</a></td>
+	<td class="summary">Checks if this string contains the substring <code>substr</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#endswith">endswith (str, substr)</a></td>
+	<td class="summary">Checks if this string ends with <code>substr</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#startswith">startswith (str, substr)</a></td>
+	<td class="summary">Checks if this string begins with <code>substr</code>.</td>
+	</tr>
+</table>
+<h2><a href="#Manipulation">Manipulation </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#title">title (str)</a></td>
+	<td class="summary">Creates a new title-case string from <code>str</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lstrip">lstrip (str, chars)</a></td>
+	<td class="summary">Strips any character from within <code>chars</code> from the left-side of the string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rstrip">rstrip (str, chars)</a></td>
+	<td class="summary">Strips any character from within <code>chars</code> from the right-side of the string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split">split (str, delimiter)</a></td>
+	<td class="summary">Returns a table containing substrings that reside in-between the delimiter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#partition">partition (str, delimiter)</a></td>
+	<td class="summary">Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ljustify">ljustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>character</code> into the left-side of the string until the string's length meets <code>len</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rjustify">rjustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>character</code> into the right-side of the string until the string's length meets <code>len</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lrjustify">lrjustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ltruncate">ltruncate (str, length, ellipsis)</a></td>
+	<td class="summary">Truncates a string from the left to meet the <code>length</code> specification.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rtruncate">rtruncate (str, length, ellipsis)</a></td>
+	<td class="summary">Truncates a string from the right to meet the <code>length</code> specification.</td>
+	</tr>
+</table>
+<h2><a href="#Constants">Constants </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ascii_punctuation">ascii_punctuation</a></td>
+	<td class="summary">A map of ASCII punctuation characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ascii_whitespace">ascii_whitespace</a></td>
+	<td class="summary">A map of ASCII whitespace characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ascii_lowercase">ascii_lowercase</a></td>
+	<td class="summary">A map of lowercase characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ascii_uppercase">ascii_uppercase</a></td>
+	<td class="summary">A map of uppercase characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ascii_letters">ascii_letters</a></td>
+	<td class="summary">A map of alphabetic characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hexdigits">hexdigits</a></td>
+	<td class="summary">A map of hexadecimal characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#octals">octals</a></td>
+	<td class="summary">A map of numeric octal numbers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#digits">digits</a></td>
+	<td class="summary">A map of numeric characters.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Predicates"></a>Predicates </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "isdigit"></a>
+    <strong>isdigit (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is a valid ASCII digit.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isdigit(<span class="string">"123456789"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.isdigit(<span class="string">"1234567 9"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isdigit(<span class="string">"1234567.9"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isdigit(<span class="string">"12345678a"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isascii"></a>
+    <strong>isascii (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is within the valid ASCII byte range.
+ As such, presense of emojis, invisible characters, and other multi-byte characters will return <code>false</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check for ASCII compatibility.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isascii(<span class="string">"Hello, World!"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.isacsii(<span class="string">"Hello, World! 🙂"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "islower"></a>
+    <strong>islower (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is a valid ASCII lowercase alphabetic character.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.islower(<span class="string">"helloworld"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.islower(<span class="string">"hell9world"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.islower(<span class="string">"hell world"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isalpha"></a>
+    <strong>isalpha (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is a valid ASCII alphabetic character.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isalpha(<span class="string">"abcdefghi"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef9hi"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef.hi"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef hi"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isupper"></a>
+    <strong>isupper (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is a valid ASCII uppercase alphabetic character.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isupper(<span class="string">"HELLOZWORLD"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.isupper(<span class="string">"HELLO WORLD"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isupper(<span class="string">"HELLO1WORLD"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isupper(<span class="string">"HELLOoWORLD"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isalnum"></a>
+    <strong>isalnum (str)</strong>
+    </dt>
+    <dd>
+    Checks if every byte of this string is a valid ASCII alphanumeric character.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isalnum(<span class="string">"abcde12345"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.isalnum(<span class="string">"abcde 2345"</span>) == <span class="keyword">false</span>,</pre></li>
+        <li><pre class="example">luastring.isalnum(<span class="string">"abcde.2345"</span>) == <span class="keyword">false</span>,</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isidentifier"></a>
+    <strong>isidentifier (str)</strong>
+    </dt>
+    <dd>
+    Checks if this string is a valid Lua identifier.
+ For example: it does not begin with a number, fully alphanumeric, contains at least one alphabetic character, may contain an underscore.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello, World!"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello_World!"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello_World"</span>) == <span class="keyword">true</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "lfind"></a>
+    <strong>lfind (str, substr)</strong>
+    </dt>
+    <dd>
+    Find the index of the first occurance of <code>substr</code> inside of <code>str</code>.
+ This is syntactic sugar for a plain-text search.
+ It's unwise to use syntactic sugar if you're desperate for performance, as it'll add one function call.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to search.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring to search <code>str</code> for.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rfind"></a>
+    <strong>rfind (str, substr)</strong>
+    </dt>
+    <dd>
+    Find the index of the last occurance of <code>substr</code> inside of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to search.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring to search <code>str</code> for.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        This will return <code>0</code> if nothing was found, otherwise the starting index of the substring.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> str = <span class="string">"hello hello hello hello hello hello"</span>
+<span class="keyword">local</span> lastidx = luastring.rfind(str, <span class="string">"hello"</span>)
+<span class="global">assert</span>(lastidx == <span class="number">31</span>) <span class="comment">-- Lua indices advance us by 1.
+</span><span class="global">assert</span>(str:sub(lastidx) == <span class="string">"hello"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "iswhitespace"></a>
+    <strong>iswhitespace (str)</strong>
+    </dt>
+    <dd>
+    Checks if this string is entirely composed of ASCII whitespace characters.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.iswhitespace(<span class="string">" \t \n\r\n\r"</span>) == <span class="keyword">true</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "count"></a>
+    <strong>count (str, substr)</strong>
+    </dt>
+    <dd>
+    Counts how many times <code>substr</code> appears inside <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring you're checking for.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.count(<span class="string">"hello world!"</span>, <span class="string">"l"</span>) == <span class="number">3</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "contains"></a>
+    <strong>contains (str, substr)</strong>
+    </dt>
+    <dd>
+    Checks if this string contains the substring <code>substr</code>.
+ This is roughly syntactic sugar for a plain-text string search.
+ It's wise to use <code>string.find(str, pattern, 1, true)</code> if you're desperate for performance, because it avoids another function call.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring you may or may not expect <code>str</code> to contain.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "endswith"></a>
+    <strong>endswith (str, substr)</strong>
+    </dt>
+    <dd>
+    Checks if this string ends with <code>substr</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring to check the end of <code>str</code> for.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"world"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "startswith"></a>
+    <strong>startswith (str, substr)</strong>
+    </dt>
+    <dd>
+    Checks if this string begins with <code>substr</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring to check the start of <code>str</code> for.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"hello"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span></pre></li>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Manipulation"></a>Manipulation </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "title"></a>
+    <strong>title (str)</strong>
+    </dt>
+    <dd>
+    Creates a new title-case string from <code>str</code>.
+ There's no universal title-case specification, but this will capitalize the first letter of any word that is not: <code>"of", "the", "at"</code>, excluding from the first word.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to convert.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.title(<span class="string">"the paranormal of the activity"</span>) == <span class="string">"The Paranormal of the Activity"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "lstrip"></a>
+    <strong>lstrip (str, chars)</strong>
+    </dt>
+    <dd>
+    Strips any character from within <code>chars</code> from the left-side of the string.
+ This stops once a character not meant to be removed is discovered.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to strip.
+        </li>
+        <li><span class="parameter">chars</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string of characters to strip from <code>str</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"!?"</span>) == <span class="string">"hello world???!!!"</span></pre></li>
+        <li><pre class="example">luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"!!!hello world???!!!"</span></pre></li>
+        <li><pre class="example">luastring.lstrip(<span class="string">"?b??!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"b??!!hello world???!!!"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rstrip"></a>
+    <strong>rstrip (str, chars)</strong>
+    </dt>
+    <dd>
+    Strips any character from within <code>chars</code> from the right-side of the string.
+ This stops once a character not meant to be removed is discovered.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to strip.
+        </li>
+        <li><span class="parameter">chars</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string of characters to strip from <code>str</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.rstrip(<span class="string">"!!!hello world!!!"</span>, <span class="string">"!"</span>) == <span class="string">"!!!hello world"</span></pre></li>
+        <li><pre class="example">luastring.rstrip(<span class="string">"???hello world???"</span>, <span class="string">"."</span>) == <span class="string">"???hello world???"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "split"></a>
+    <strong>split (str, delimiter)</strong>
+    </dt>
+    <dd>
+    Returns a table containing substrings that reside in-between the delimiter.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to split.
+        </li>
+        <li><span class="parameter">delimiter</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The delimiter to split the string upon. Any length is valid.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.split(<span class="string">"hello world"</span>, <span class="string">" "</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> }</pre></li>
+        <li><pre class="example">luastring.split(<span class="string">"hello world, goodbye!"</span>, <span class="string">", "</span>) == { <span class="string">"hello world"</span>, <span class="string">"goodbye!"</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "partition"></a>
+    <strong>partition (str, delimiter)</strong>
+    </dt>
+    <dd>
+    Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to partition.
+        </li>
+        <li><span class="parameter">delimiter</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The delimiter to partition the string upon.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string,string</a> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string,nil</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> before, after = luastring.partition(<span class="string">"hello.wor.ld"</span>, <span class="string">"."</span>)
+<span class="global">assert</span>(before == <span class="string">"hello"</span>)
+<span class="global">assert</span>(after == <span class="string">"wor.ld"</span>)
+
+<span class="keyword">local</span> before, after = luastring.partition(<span class="string">"doesn't contain"</span>, <span class="string">"!"</span>)
+<span class="global">assert</span>(before == <span class="string">"doesn't contain"</span>)
+<span class="global">assert</span>(after == <span class="keyword">nil</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ljustify"></a>
+    <strong>ljustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>character</code> into the left-side of the string until the string's length meets <code>len</code>.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"*****hello"</span></pre></li>
+        <li><pre class="example">luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rjustify"></a>
+    <strong>rjustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>character</code> into the right-side of the string until the string's length meets <code>len</code>.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"hello*****"</span></pre></li>
+        <li><pre class="example">luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "lrjustify"></a>
+    <strong>lrjustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.
+ Since this is two-sided justification, the padding length will always round up.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"***hello***"</span></pre></li>
+        <li><pre class="example">luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">12</span>) == <span class="string">"****hello****"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ltruncate"></a>
+    <strong>ltruncate (str, length, ellipsis)</strong>
+    </dt>
+    <dd>
+    Truncates a string from the left to meet the <code>length</code> specification.
+ Optionally prepending an ellipsis to the truncated string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to truncate, if needed.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">number</span></span>
+         An integral number describing the desired length of <code>str</code>.
+        </li>
+        <li><span class="parameter">ellipsis</span>
+            <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+         A boolean specifying whether or not to append an ellipsis to the truncated result.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The string remains unchanged if it doesn't exceed <code>length</code>.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>) == <span class="string">", World!"</span></pre></li>
+        <li><pre class="example">luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"..., World!"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rtruncate"></a>
+    <strong>rtruncate (str, length, ellipsis)</strong>
+    </dt>
+    <dd>
+    Truncates a string from the right to meet the <code>length</code> specification.
+ Optionally appending an ellipsis to the truncated string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to truncate, if needed.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">number</span></span>
+         An integral number describing the desired length of <code>str</code>.
+        </li>
+        <li><span class="parameter">ellipsis</span>
+            <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+         A boolean specifying whether or not to append an ellipsis to the truncated result.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The string remains unchanged if it doesn't exceed <code>length</code>.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
+        <li><pre class="example">luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"hello..."</span></pre></li>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Constants"></a>Constants </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ascii_punctuation"></a>
+    <strong>ascii_punctuation</strong>
+    </dt>
+    <dd>
+    A map of ASCII punctuation characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_punctuation = {
+    [<span class="string">","</span>] = <span class="number">0</span>, [<span class="string">"?"</span>] = <span class="number">0</span>, [<span class="string">"."</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ascii_whitespace"></a>
+    <strong>ascii_whitespace</strong>
+    </dt>
+    <dd>
+    A map of ASCII whitespace characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_whitespace = {
+    [<span class="string">"\n"</span>] = <span class="number">0</span>, [<span class="string">"\t"</span>] = <span class="number">0</span>, [<span class="string">" "</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ascii_lowercase"></a>
+    <strong>ascii_lowercase</strong>
+    </dt>
+    <dd>
+    A map of lowercase characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_lowercase = {
+    [<span class="string">"a"</span>] = <span class="number">0</span>, [<span class="string">"b"</span>] = <span class="number">0</span>, [<span class="string">"c"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ascii_uppercase"></a>
+    <strong>ascii_uppercase</strong>
+    </dt>
+    <dd>
+    A map of uppercase characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_uppercase = {
+    [<span class="string">"A"</span>] = <span class="number">0</span>, [<span class="string">"B"</span>] = <span class="number">0</span>, [<span class="string">"C"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ascii_letters"></a>
+    <strong>ascii_letters</strong>
+    </dt>
+    <dd>
+    A map of alphabetic characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_letters = {
+    [<span class="string">"a"</span>] = <span class="number">0</span>, [<span class="string">"A"</span>] = <span class="number">0</span>, [<span class="string">"b"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "hexdigits"></a>
+    <strong>hexdigits</strong>
+    </dt>
+    <dd>
+    A map of hexadecimal characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_hexdigits = {
+    [<span class="string">"0"</span>] = <span class="number">0</span>, [<span class="string">"E"</span>] = <span class="number">0</span>, [<span class="string">"F"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "octals"></a>
+    <strong>octals</strong>
+    </dt>
+    <dd>
+    A map of numeric octal numbers.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_whitespace = {
+    [<span class="string">"6"</span>] = <span class="number">0</span>, [<span class="string">"7"</span>] = <span class="number">0</span>, [<span class="string">"8"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "digits"></a>
+    <strong>digits</strong>
+    </dt>
+    <dd>
+    A map of numeric characters.
+ Organized in the following sense to provide O(1) lookups.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">luastring.ascii_digits = {
+    [<span class="string">"1"</span>] = <span class="number">0</span>, [<span class="string">"2"</span>] = <span class="number">0</span>, [<span class="string">"3"</span>] = <span class="number">0</span> ...
+}</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-05-04 21:45:22 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
