@@ -127,6 +127,10 @@
 	<td class="summary">Converts a number to a more human-readable value.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#tobool">tobool (str, ints)</a></td>
+	<td class="summary">Converts a string to a boolean, if possible.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#strip">strip (str, chars)</a></td>
 	<td class="summary">Strips any character from within <code>chars</code> from both sides of the string.</td>
 	</tr>
@@ -174,6 +178,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#rtruncate">rtruncate (str, length, ellipsis)</a></td>
 	<td class="summary">Truncates a string from the right to meet the <code>length</code> specification.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#translate">translate (str, translation_table)</a></td>
+	<td class="summary">Translates <code>str</code> in accordance with the translation table you create.</td>
 	</tr>
 </table>
 <h2><a href="#Constants">Constants </a></h2>
@@ -415,8 +423,8 @@
     <h3>Usage:</h3>
     <ul>
         <li><pre class="example">luastring.isalnum(<span class="string">"abcde12345"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isalnum(<span class="string">"abcde 2345"</span>) == <span class="keyword">false</span>,</pre></li>
-        <li><pre class="example">luastring.isalnum(<span class="string">"abcde.2345"</span>) == <span class="keyword">false</span>,</pre></li>
+        <li><pre class="example">luastring.isalnum(<span class="string">"abcde 2345"</span>) == <span class="keyword">false</span></pre></li>
+        <li><pre class="example">luastring.isalnum(<span class="string">"abcde.2345"</span>) == <span class="keyword">false</span></pre></li>
     </ul>
 
 </dd>
@@ -749,6 +757,44 @@
     <h3>Usage:</h3>
     <ul>
         <pre class="example">luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "tobool"></a>
+    <strong>tobool (str, ints)</strong>
+    </dt>
+    <dd>
+    Converts a string to a boolean, if possible.
+ This optionally will parse integers too.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         The string or number to convert.
+        </li>
+        <li><span class="parameter">ints</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Whether or not to process integral values.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Returns <code>nil</code> if no conversion could be made.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">luastring.tobool(<span class="string">"true"</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.tobool(<span class="string">"0"</span>, <span class="keyword">true</span>) == <span class="keyword">true</span></pre></li>
+        <li><pre class="example">luastring.tobool(<span class="number">1</span>, <span class="keyword">true</span>) == <span class="keyword">false</span></pre></li>
     </ul>
 
 </dd>
@@ -1224,6 +1270,47 @@
     </ul>
 
 </dd>
+    <dt>
+    <a name = "translate"></a>
+    <strong>translate (str, translation_table)</strong>
+    </dt>
+    <dd>
+    Translates <code>str</code> in accordance with the translation table you create.
+ Translation tables are character maps.
+ This loops over each character and requests your translation table for an alternate representation.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to translate.
+        </li>
+        <li><span class="parameter">translation_table</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The translation table for this string. Example below.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Returns the original string if no translation was made.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> translation_table = {
+    [<span class="string">","</span>] = <span class="string">"Z"</span>, [<span class="string">"!"</span>] = <span class="string">"?"</span>, [<span class="string">"W"</span>] = <span class="string">"R"</span>
+}
+<span class="keyword">local</span> translated = luastring.translate(<span class="string">"Hello, World!"</span>, translation_table)
+<span class="global">assert</span>(translated == <span class="string">"HelloZ Rorld?"</span>)</pre>
+    </ul>
+
+</dd>
 </dl>
     <h2 class="section-header "><a name="Constants"></a>Constants </h2>
 
@@ -1403,7 +1490,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-05-05 06:39:47 </i>
+<i style="float:right;">Last updated 2022-05-05 08:11:47 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

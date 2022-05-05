@@ -136,6 +136,16 @@ local ascii_octals = {
     ["6"] = 0, ["7"] = 0
 }
 
+-- Seems redundant, but we can avoid creating a new string further below with a little hardcoding.
+local luabools = {
+    ["true"] = true,
+    [" true"] = true,
+    ["true "] = true,
+    ["false"] = false,
+    [" false"] = false,
+    ["false "] = false
+}
+
 local strrep = string.rep
 local strsub = string.sub
 local strgsub = string.gsub
@@ -207,8 +217,8 @@ end
 --- Checks if every byte of this string is a valid ASCII alphanumeric character.
 -- @tparam string str The string to check.
 -- @usage luastring.isalnum("abcde12345") == true
--- @usage luastring.isalnum("abcde 2345") == false,
--- @usage luastring.isalnum("abcde.2345") == false,
+-- @usage luastring.isalnum("abcde 2345") == false
+-- @usage luastring.isalnum("abcde.2345") == false
 -- @treturn boolean
 function luastring.isalnum(str)
     return strfind(str,'^%w+$') == 1
@@ -370,6 +380,28 @@ function luastring.commaify(str)
         end
     end
     return formatted
+end
+
+--- Converts a string to a boolean, if possible.
+-- This optionally will parse integers too.
+-- @tparam string|number str The string or number to convert.
+-- @tparam boolean ints Whether or not to process integral values.
+-- @usage luastring.tobool("true") == true
+-- @usage luastring.tobool("0", true) == true
+-- @usage luastring.tobool(1, true) == false
+-- @treturn boolean|nil Returns <code>nil</code> if no conversion could be made.
+function luastring.tobool(str, ints)
+    local c1 = luabools[str] or luabools[str:lower()]
+    if c1 ~= nil then
+        return c1
+    elseif ints == true then
+        local n = tonumber(str)
+        if n == 0 then
+            return false
+        elseif n == 1 then
+            return true
+        end
+    end
 end
 
 --- Strips any character from within <code>chars</code> from both sides of the string.
@@ -574,6 +606,29 @@ function luastring.rtruncate(str, length, ellipsis)
     else
         return str
     end
+end
+
+--- Translates <code>str</code> in accordance with the translation table you create.
+-- Translation tables are character maps.
+-- This loops over each character and requests your translation table for an alternate representation.
+-- @tparam string str The string to translate.
+-- @tparam table translation_table The translation table for this string. Example below.
+-- @usage
+-- local translation_table = {
+--     [","] = "Z", ["!"] = "?", ["W"] = "R"
+-- }
+-- local translated = luastring.translate("Hello, World!", translation_table)
+-- assert(translated == "HelloZ Rorld?")
+-- @treturn string Returns the original string if no translation was made.
+function luastring.translate(str, translation_table)
+    local newstr = {}
+    local newlen = 0
+    for i = 1, #str do
+        newlen = newlen + 1
+        local character = string.sub(str, i, i)
+        newstr[newlen] = translation_table[character] or character
+    end
+    return table.concat(newstr)
 end
 
 --- Constants
