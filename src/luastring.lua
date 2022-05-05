@@ -421,6 +421,21 @@ function luastring.rstrip(str, chars)
     end
 end
 
+--- Split a string using a pattern.
+-- @tparam string str The string to split.
+-- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
+-- @usage luastring.splitv("hello world", "%S+") == { "hello", "world" }
+-- @treturn table This will return an empty table if no matches are made.
+function luastring.splitv(str, pattern)
+    local res = {}
+    local len = 0
+    for w in strgmatch(str, pattern) do
+        len = len + 1
+        res[len] = w
+    end
+    return res
+end
+
 --- Returns a table containing substrings that reside in-between the delimiter.
 -- @tparam string str The string to split.
 -- @tparam string delimiter The delimiter to split the string upon. Any length is valid.
@@ -431,7 +446,7 @@ function luastring.split(str, delimiter)
     local result = {}
     local resultSize = 0
 
-    for substr in str:gmatch("([^" .. delimiter .. "]+)") do
+    for substr in strgmatch(str, "([^" .. delimiter .. "]+)") do
         resultSize = resultSize + 1
         result[resultSize] = substr
     end
