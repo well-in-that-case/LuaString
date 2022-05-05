@@ -231,9 +231,9 @@ end
 -- @usage luastring.isidentifier("Hello_World!") == false
 -- @usage luastring.isidentifier("Hello_World") == true
 function luastring.isidentifier(str)
-    if tonumber(string.sub(str, 1, 1)) ~= nil then
+    if tonumber(strsub(str, 1, 1)) ~= nil then
         return false
-    elseif string.find(str, "[^a-zA-Z0-9_]") then
+    elseif strfind(str, "[^a-zA-Z0-9_]") then
         return false
     else
         return true
@@ -625,10 +625,10 @@ function luastring.translate(str, translation_table)
     local newlen = 0
     for i = 1, #str do
         newlen = newlen + 1
-        local character = string.sub(str, i, i)
+        local character = strsub(str, i, i)
         newstr[newlen] = translation_table[character] or character
     end
-    return table.concat(newstr)
+    return tableconcat(newstr)
 end
 
 --- Constants
