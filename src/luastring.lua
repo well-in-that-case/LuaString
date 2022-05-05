@@ -291,6 +291,19 @@ function luastring.count(str, substr)
     end
 end
 
+--- Checks if this string is <code>nil</code> or an empty string.
+-- @tparam string str The string to check.
+-- @usage luastring.nil_or_empty("") == true
+-- @usage luastring.nil_or_empty(nil) == true
+-- @treturn boolean This returns <code>true</code> if the string is nil or empty.
+function luastring.nil_or_empty(str)
+    if str == nil or str == "" then
+        return true
+    else
+        return false
+    end
+end
+
 --- Checks if this string contains the substring <code>substr</code>.
 -- This is roughly syntactic sugar for a plain-text string search.
 -- It's wise to use <code>string.find(str, pattern, 1, true)</code> if you're desperate for performance, because it avoids another function call.
