@@ -34,53 +34,7 @@ SOFTWARE.
 -- <br><br><i>LuaString is an extension of the <code>string</code> library:</i>
 -- @usage
 -- local string = require("luastring")
-local unpack = _G["un" .. "pack"] or table.unpack
-local luastring = { unpack(string) }
-
-local ascii_lowercase = {
-    a = 0, b = 0, c = 0,
-    d = 0, e = 0, f = 0,
-    g = 0, h = 0, i = 0,
-    j = 0, k = 0, l = 0,
-    m = 0, n = 0, o = 0,
-    p = 0, q = 0, r = 0,
-    s = 0, t = 0, u = 0,
-    v = 0, w = 0, x = 0,
-    y = 0, z = 0
-}
-
-local ascii_uppercase = {
-    A = 0, B = 0, C = 0,
-    D = 0, E = 0, F = 0,
-    G = 0, H = 0, I = 0,
-    J = 0, K = 0, L = 0,
-    M = 0, N = 0, O = 0,
-    P = 0, Q = 0, R = 0,
-    S = 0, T = 0, U = 0,
-    V = 0, W = 0, X = 0,
-    Y = 0, Z = 0
-}
-
-local ascii_letters = {
-    a = 0, b = 0, c = 0,
-    d = 0, e = 0, f = 0,
-    g = 0, h = 0, i = 0,
-    j = 0, k = 0, l = 0,
-    m = 0, n = 0, o = 0,
-    p = 0, q = 0, r = 0,
-    s = 0, t = 0, u = 0,
-    v = 0, w = 0, x = 0,
-    y = 0, z = 0,
-    A = 0, B = 0, C = 0,
-    D = 0, E = 0, F = 0,
-    G = 0, H = 0, I = 0,
-    J = 0, K = 0, L = 0,
-    M = 0, N = 0, O = 0,
-    P = 0, Q = 0, R = 0,
-    S = 0, T = 0, U = 0,
-    V = 0, W = 0, X = 0,
-    Y = 0, Z = 0
-}
+local luastring = {}
 
 local ascii_punctuation = {
     ["!"] = 0, ['"'] = 0, ["#"] = 0,
@@ -104,43 +58,18 @@ local ascii_whitespace = {
 }
 
 local ascii_hexdigits = {
-    [0] = 0,
-    [1] = 0, [2] = 0, [3] = 0,
-    [4] = 0, [5] = 0, [6] = 0,
-    [7] = 0, [8] = 0, [9] = 0,
-    ["0"] = 0, ["1"] = 0, ["2"] = 0,
-    ["3"] = 0, ["4"] = 0, ["5"] = 0,
-    ["6"] = 0, ["7"] = 0, ["8"] = 0,
-    ["9"] = 0, ["a"] = 0, ["b"] = 0,
-    ["c"] = 0, ["d"] = 0, ["e"] = 0,
-    ["f"] = 0, ["A"] = 0, ["B"] = 0,
-    ["C"] = 0, ["D"] = 0, ["E"] = 0,
-    ["F"] = 0
+    ["a"] = 0, ["b"] = 0, ["c"] = 0,
+    ["d"] = 0, ["e"] = 0, ["f"] = 0,
+    ["A"] = 0, ["B"] = 0, ["C"] = 0,
+    ["D"] = 0, ["E"] = 0, ["F"] = 0
 }
 
-local ascii_digits = {
-    [0] = 0, [1] = 0,
-    [2] = 0, [3] = 0,
-    [4] = 0, [5] = 0,
-    [6] = 0, [7] = 0,
-    [8] = 0, [9] = 0,
-    ["0"] = 0, ["1"] = 0,
-    ["2"] = 0, ["3"] = 0,
-    ["4"] = 0, ["5"] = 0,
-    ["6"] = 0, ["7"] = 0,
-    ["8"] = 0, ["9"] = 0
-}
-
-local ascii_octals = {
-    [0] = 0, [1] = 0,
-    [2] = 0, [3] = 0,
-    [4] = 0, [5] = 0,
-    [6] = 0, [7] = 0,
-    ["0"] = 0, ["1"] = 0,
-    ["2"] = 0, ["3"] = 0,
-    ["4"] = 0, ["5"] = 0,
-    ["6"] = 0, ["7"] = 0
-}
+local ascii_digits = {}
+local ascii_octals = {}
+local ascii_letters = {}
+local ascii_printable = {}
+local ascii_lowercase = {}
+local ascii_uppercase = {}
 
 -- Seems redundant, but we can avoid creating a new string further below with a little hardcoding.
 local luabools = {
@@ -165,6 +94,41 @@ local strgmatch = string.gmatch
 local mathrandom = math.random
 local strreverse = string.reverse
 local tableconcat = table.concat
+
+-- Extend 'string'
+for key, func in pairs(string) do
+    luastring[key] = func
+end
+
+-- Populate 'ascii_octals'
+for i = 0, 7 do
+    ascii_octals[i] = 0
+    ascii_octals[tostring(i)] = 0
+end
+
+-- Populate 'ascii_uppercase'
+for i = 65, 90 do
+    ascii_uppercase[strchr(i)] = 0
+end
+
+-- Populate 'ascii_lowercase'
+for i = 97, 122 do
+    ascii_lowercase[strchr(i)] = 0
+end
+
+-- Populate 'ascii_digits' & partially 'ascii_hexdigits'
+for i = 0, 9 do
+    local s = tostring(i)
+    ascii_digits[i] = 0
+    ascii_digits[s] = 0
+    ascii_hexdigits[i] = 0
+    ascii_hexdigits[s] = 0
+end
+
+-- Populate 'ascii_printable' with all the character codes between 26 & 132.
+for i = 26, 132 do
+    ascii_printable[i] = strchr(i)
+end
 
 --- Predicates
 -- @section predicates
@@ -647,14 +611,10 @@ end
 -- assert(translated == "HelloZ Rorld?")
 -- @treturn string Returns the original string if no translation was made.
 function luastring.translate(str, translation_table)
-    local newstr = {}
-    local newlen = 0
-    for i = 1, #str do
-        newlen = newlen + 1
-        local character = strsub(str, i, i)
-        newstr[newlen] = translation_table[character] or character
-    end
-    return tableconcat(newstr)
+    local res, _ = strgsub(str, ".", function (c)
+        return translation_table[c] or c
+    end)
+    return res
 end
 
 --- Generates a random string from the ASCII-printable (32-126) byte range.
@@ -670,14 +630,19 @@ end
 -- @treturn string
 function luastring.randomstring(length, excluded_chars)
     local res = {}
-    excluded_chars = excluded_chars or {}
 
-    for i = 1, length do
-        local char = strchr(mathrandom(32, 126))
-        while excluded_chars[char] ~= nil do
-            char = strchr(mathrandom(32, 126))
+    if excluded_chars then
+        for i = 1, length do
+            local char = ascii_printable[mathrandom(32, 126)]
+            while excluded_chars[char] ~= nil do
+                char = ascii_printable[mathrandom(32, 126)]
+            end
+            res[i] = char
         end
-        res[i] = char
+    else
+        for i = 1, length do
+            res[i] = ascii_printable[mathrandom(32, 126)]
+        end
     end
 
     return tableconcat(res)
