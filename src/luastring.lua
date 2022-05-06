@@ -22,10 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 --]]
 
---- A stand-alone extension of string operations for Lua.
--- Written in pure Lua for excellent compatibility, maintainability, and guaranteed portability.
--- <br><br>
--- <i>LuaString is an extension of the <code>string</code> library:</i>
+--- An exhaustive extension of string operations for Lua. LuaString is:
+-- <ul>
+-- <li>Permissive (via MIT).</li>
+-- <li>A pure Lua implementation.</li>
+-- <li>Fully compatible with ANSI C, LuaJIT, and Lua 5.1+.</li>
+-- <li>Designed for maintainability, compatibility, and portability.</li>
+-- </ul>
+-- <h1>License</h1>
+-- LuaString is licensed under MIT. <a href="https://github.com/well-in-that-case/LuaString/blob/main/LICENSE">View the terms here.</a>
+-- <br><br><i>LuaString is an extension of the <code>string</code> library:</i>
 -- @usage
 -- local string = require("luastring")
 local unpack = _G["un" .. "pack"] or table.unpack
