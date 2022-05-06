@@ -724,6 +724,14 @@ luastring.ascii_lowercase = ascii_lowercase
 -- }
 luastring.ascii_uppercase = ascii_uppercase
 
+--- A map of printable ASCII characters (32-126 byte range).
+-- Organized in the following sense to provide O(1) lookups.
+-- @usage
+-- luastring.ascii_printable = {
+--     ["|"] = 0, ["A"] = 0, ["3"] = 0 ...
+-- }
+luastring.ascii_printable = ascii_printable
+
 --- A map of alphabetic characters.
 -- Organized in the following sense to provide O(1) lookups.
 -- @usage
