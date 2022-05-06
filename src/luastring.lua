@@ -691,6 +691,24 @@ function luastring.iter_begin(str)
     end
 end
 
+--- Map a callback to chunks of <code>str</code>.
+-- @tparam string str The string to map across.
+-- @tparam number size The size of each chunk.
+-- @tparam function callback The callback to run with each chunk. It recieves one string argument.
+-- @usage
+-- local str = "chunk1chunk2chunk3"
+-- local chunks = {}
+-- luastring.map(str, 6, function (chunk) chunks[#chunks + 1] = chunk end)
+-- assert(chunks[1] == "chunk1")
+-- assert(chunks[2] == "chunk2")
+-- assert(chunks[3] == "chunk3")
+-- @treturn nil This function has no return.
+function luastring.map(str, size, callback)
+    for i = 1, #str, size do
+        callback(strsub(str, i, i + size - 1))
+    end
+end
+
 --- Constants
 -- @section fields
 
