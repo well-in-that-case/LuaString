@@ -4,7 +4,7 @@ source = {
    url = "https://github.com/well-in-that-case/LuaString.git"
 }
 description = {
-   summary = "A stand-alone extension of string operations for Lua.",
+   summary = "An exhaustive extension of string operations for Lua.",
    homepage = "",
    license = "MIT"
 }
