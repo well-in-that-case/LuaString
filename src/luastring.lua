@@ -276,11 +276,7 @@ end
 -- @usage luastring.nil_or_empty(nil) == true
 -- @treturn boolean This returns <code>true</code> if the string is nil or empty.
 function luastring.nil_or_empty(str)
-    if str == nil or str == "" then
-        return true
-    else
-        return false
-    end
+    return str == nil or str == ""
 end
 
 --- Checks if this string contains the substring <code>substr</code>.
