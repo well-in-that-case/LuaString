@@ -1,5 +1,5 @@
 # LuaString
-A stand-alone extension of string operations for Lua. Written in pure Lua for excellent compatibility, maintainability, and guaranteed portability.
+An exhaustive extension of string operations for Lua. Designed for maintainability, compatibility, and portability. LuaString is fully compatible with ANSI C, LuaJIT, and Lua 5.1+.
 
 Read the <a href="https://well-in-that-case.github.io/LuaString/">documentation</a> here.
 
