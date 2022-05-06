@@ -611,9 +611,7 @@ end
 -- assert(translated == "HelloZ Rorld?")
 -- @treturn string Returns the original string if no translation was made.
 function luastring.translate(str, translation_table)
-    local res, _ = strgsub(str, ".", function (c)
-        return translation_table[c] or c
-    end)
+    local res, _ = strgsub(str, ".", translation_table)
     return res
 end
 
@@ -664,7 +662,7 @@ function luastring.iter_end(str)
     local last = #str + 1
     return function ()
         last = last - 1
-        local c = string.sub(str, last, last)
+        local c = strsub(str, last, last)
         if c ~= "" then
             return c
         end
