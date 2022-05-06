@@ -127,7 +127,9 @@ end
 
 -- Populate 'ascii_printable' with all the character codes between 26 & 132.
 for i = 26, 132 do
-    ascii_printable[i] = strchr(i)
+    local char = strchr(i)
+    ascii_printable[i] = char
+    ascii_printable[char] = i
 end
 
 --- Predicates
@@ -726,6 +728,7 @@ luastring.ascii_uppercase = ascii_uppercase
 
 --- A map of printable ASCII characters (32-126 byte range).
 -- Organized in the following sense to provide O(1) lookups.
+-- This also maps character codes to their character.
 -- @usage
 -- luastring.ascii_printable = {
 --     ["|"] = 0, ["A"] = 0, ["3"] = 0 ...
