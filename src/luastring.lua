@@ -370,6 +370,29 @@ function luastring.commaify(str)
     return formatted
 end
 
+--- Returns a table containing an element for each line inside this string.
+-- @tparam string str The string with the lines to split.
+-- @usage
+-- local str = [[
+--     str1
+--     str2
+--     str3
+-- ]]
+-- local lines = luastring.split_lines(str)
+-- for index, value in ipairs(lines) do
+--     print(("%d: %s"):format(index, value)) -- 1: str1 ...
+-- end
+-- @treturn table
+function luastring.split_lines(str)
+    local res = {}
+    local len = 0
+    for line in strgmatch(str, "[^\n\r\x80-\xFF]+") do
+        len = len + 1
+        res[len] = line
+    end
+    return res
+end
+
 --- Converts a string to a boolean, if possible.
 -- This optionally will parse integers too.
 -- @tparam string|number str The string or number to convert.
@@ -646,6 +669,25 @@ end
 
 --- Iterators
 -- @section iterators
+
+--- An iterator for every line inside this string.
+-- @tparam string str The string to iterate.
+-- @usage
+-- local str = [[
+--     hello,
+--     world,
+--     this,
+--     is,
+--     an,
+--     example.
+-- ]]
+-- for word in luastring.lines(str) do
+--     print(word)
+-- end
+-- @treturn function
+function luastring.lines(str)
+    return strgmatch(str, "[^\n\r\x80-\xFF]+")
+end
 
 --- An iterator for every byte (or in ASCII, character) inside of this string.
 -- This function loops backward from the end of the string.
