@@ -657,19 +657,16 @@ end
 -- @treturn string The original string is returned if no replacement was made.
 function luastring.replace_first(str, old, new)
     local state = 1
-    while state == 1 do
-        local result, _ = strgsub(str, old, function (s)
-            if state == 1 then
-                state = 0
-                return new
-            else
-                return s
-            end
-        end)
-        if result then
-            str = result
+    local result, _ = string.gsub(str, old, function (s)
+        if state == 1 then
+            state = 0
+            return new
+        else
+            return s
         end
-        break
+    end)
+    if result then
+        str = result
     end
     return str
 end
@@ -772,6 +769,31 @@ end
 function luastring.translate(str, translation_table)
     local res, _ = strgsub(str, ".", translation_table)
     return res
+end
+
+--- Replaces several occurances of <code>old</code> inside <code>str</code>.
+-- @tparam string str The string to partially replace.
+-- @tparam string old The old substring you wish to replace.
+-- @tparam string new The new substring to replace <code>old</code> with.
+-- @tparam number limit The amount of times to replace <code>old</code>.
+-- @usage
+-- assert(luastring.replace_many("world world world", "world", "hello", 2) == "hello hello world")
+-- assert(luastring.replace_many("world world world", "truck", "hello", 2) == "world world world")
+-- @treturn string
+function luastring.replace_many(str, old, new, limit)
+    local state = 0
+    local result, _ = strgsub(str, old, function (s)
+        if state < limit then
+            state = state + 1
+            return new
+        else
+            return s
+        end
+    end)
+    if result then
+        str = result
+    end
+    return str
 end
 
 --- Generates a random string from the ASCII-printable (32-126) byte range.
