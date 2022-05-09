@@ -643,7 +643,7 @@ function luastring.subsequence(str, min, max)
         if char then
             len = len + 1
             res[len] = char
-        else
+        elseif char == "" then
             break
         end
     end
