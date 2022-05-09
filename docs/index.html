@@ -32,6 +32,7 @@
 <li><a href="#Predicates">Predicates </a></li>
 <li><a href="#Manipulation">Manipulation </a></li>
 <li><a href="#Iterators">Iterators </a></li>
+<li><a href="#Helper_Functions">Helper Functions </a></li>
 <li><a href="#Constants">Constants </a></li>
 </ul>
 
@@ -134,6 +135,10 @@
 	<td class="summary">Creates a new title-case string from <code>str</code>.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#sequence">sequence (str)</a></td>
+	<td class="summary">Creates a table with an element for each character of <code>str</code>.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#commaify">commaify (str)</a></td>
 	<td class="summary">Converts a number to a more human-readable value.</td>
 	</tr>
@@ -187,6 +192,10 @@
 	<td class="summary">Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#subsequence">subsequence (str, min, max)</a></td>
+	<td class="summary">Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#ltruncate">ltruncate (str, length, ellipsis)</a></td>
 	<td class="summary">Truncates a string from the left to meet the <code>length</code> specification.</td>
 	</tr>
@@ -220,6 +229,13 @@
 	<tr>
 	<td class="name" nowrap><a href="#map">map (str, size, callback)</a></td>
 	<td class="summary">Map a callback to chunks of <code>str</code>.</td>
+	</tr>
+</table>
+<h2><a href="#Helper_Functions">Helper Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#copy_table">copy_table (t1)</a></td>
+	<td class="summary">Copy a 1D table.</td>
 	</tr>
 </table>
 <h2><a href="#Constants">Constants </a></h2>
@@ -296,10 +312,10 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isdigit(<span class="string">"123456789"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isdigit(<span class="string">"1234567 9"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isdigit(<span class="string">"1234567.9"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isdigit(<span class="string">"12345678a"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isdigit(<span class="string">"123456789"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.isdigit(<span class="string">"1234567 9"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isdigit(<span class="string">"1234567.9"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isdigit(<span class="string">"12345678a"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -331,8 +347,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isascii(<span class="string">"Hello, World!"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isacsii(<span class="string">"Hello, World! 🙂"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isascii(<span class="string">"Hello, World!"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.isacsii(<span class="string">"Hello, World! 🙂"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -363,9 +379,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.islower(<span class="string">"helloworld"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.islower(<span class="string">"hell9world"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.islower(<span class="string">"hell world"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.islower(<span class="string">"helloworld"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.islower(<span class="string">"hell9world"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.islower(<span class="string">"hell world"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -396,10 +412,10 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isalpha(<span class="string">"abcdefghi"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef9hi"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef.hi"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isalpha(<span class="string">"abcdef hi"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isalpha(<span class="string">"abcdefghi"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.isalpha(<span class="string">"abcdef9hi"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isalpha(<span class="string">"abcdef.hi"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isalpha(<span class="string">"abcdef hi"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -430,10 +446,10 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isupper(<span class="string">"HELLOZWORLD"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isupper(<span class="string">"HELLO WORLD"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isupper(<span class="string">"HELLO1WORLD"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isupper(<span class="string">"HELLOoWORLD"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isupper(<span class="string">"HELLOZWORLD"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.isupper(<span class="string">"HELLO WORLD"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isupper(<span class="string">"HELLO1WORLD"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isupper(<span class="string">"HELLOoWORLD"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -464,9 +480,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isalnum(<span class="string">"abcde12345"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.isalnum(<span class="string">"abcde 2345"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isalnum(<span class="string">"abcde.2345"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isalnum(<span class="string">"abcde12345"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.isalnum(<span class="string">"abcde 2345"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isalnum(<span class="string">"abcde.2345"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -487,14 +503,20 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
 
 
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello, World!"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello_World!"</span>) == <span class="keyword">false</span></pre></li>
-        <li><pre class="example">luastring.isidentifier(<span class="string">"Hello_World"</span>) == <span class="keyword">true</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.isidentifier(<span class="string">"Hello, World!"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isidentifier(<span class="string">"Hello_World!"</span>) == <span class="keyword">false</span>)
+<span class="global">assert</span>(luastring.isidentifier(<span class="string">"Hello_World"</span>) == <span class="keyword">true</span>)</pre>
     </ul>
 
 </dd>
@@ -547,9 +569,12 @@
 
     <h3>Returns:</h3>
     <ol>
-
+        <li>
            <span class="types"><span class="type">number</span></span>
-        This will return <code>0</code> if nothing was found, otherwise the starting index of the substring.
+        This will return <code>0</code> if nothing was found, otherwise the starting index of the substring.</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        </li>
     </ol>
 
 
@@ -590,7 +615,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">luastring.iswhitespace(<span class="string">" \t \n\r\n\r"</span>) == <span class="keyword">true</span></pre>
+        <pre class="example"><span class="global">assert</span>(luastring.iswhitespace(<span class="string">" \t \n\r\n\r"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.iswhitespace(<span class="string">"\t\n\r\nabc/"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -625,7 +651,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">luastring.count(<span class="string">"hello world!"</span>, <span class="string">"l"</span>) == <span class="number">3</span></pre>
+        <pre class="example"><span class="global">assert</span>(luastring.count(<span class="string">"hello world!"</span>, <span class="string">"l"</span>) == <span class="number">3</span>)
+<span class="global">assert</span>(luastring.count(<span class="string">"hello world!"</span>, <span class="string">"z"</span>) == <span class="number">0</span>)</pre>
     </ul>
 
 </dd>
@@ -656,8 +683,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.nil_or_empty(<span class="string">""</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.nil_or_empty(<span class="keyword">nil</span>) == <span class="keyword">true</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.nil_or_empty(<span class="string">""</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.nil_or_empty(<span class="keyword">nil</span>) == <span class="keyword">true</span>)</pre>
     </ul>
 
 </dd>
@@ -668,7 +695,6 @@
     <dd>
     Checks if this string contains the substring <code>substr</code>.
  This is roughly syntactic sugar for a plain-text string search.
- It's wise to use <code>string.find(str, pattern, 1, true)</code> if you're desperate for performance, because it avoids another function call.
 
 
     <h3>Parameters:</h3>
@@ -692,6 +718,11 @@
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.contains(<span class="string">"hello world"</span>, <span class="string">"rld"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.contains(<span class="string">"hello world"</span>, <span class="string">"abc"</span>) == <span class="keyword">false</span>)</pre>
+    </ul>
 
 </dd>
     <dt>
@@ -725,8 +756,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"world"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"world"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.endswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -761,8 +792,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"hello"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"hello"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.startswith(<span class="string">"hello world"</span>, <span class="string">"truck"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -798,7 +829,40 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">luastring.title(<span class="string">"the paranormal of the activity"</span>) == <span class="string">"The Paranormal of the Activity"</span></pre>
+        <pre class="example"><span class="global">assert</span>(luastring.title(<span class="string">"the paranormal of the activity"</span>) == <span class="string">"The Paranormal of the Activity"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sequence"></a>
+    <strong>sequence (str)</strong>
+    </dt>
+    <dd>
+    Creates a table with an element for each character of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to deconstruct.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        This table will be empty for empty strings.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="global">ipairs</span>(luastring.sequence(<span class="string">"hello"</span>)) <span class="keyword">do</span>
+    <span class="global">print</span>(index, value) <span class="comment">-- 1 h ...
+</span><span class="keyword">end</span></pre>
     </ul>
 
 </dd>
@@ -830,7 +894,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span></pre>
+        <pre class="example"><span class="global">assert</span>(luastring.commaify(<span class="string">"-100000"</span>) == <span class="string">"-100,000"</span>)
+<span class="global">assert</span>(luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span>)</pre>
     </ul>
 
 </dd>
@@ -905,9 +970,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.tobool(<span class="string">"true"</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.tobool(<span class="string">"0"</span>, <span class="keyword">true</span>) == <span class="keyword">true</span></pre></li>
-        <li><pre class="example">luastring.tobool(<span class="number">1</span>, <span class="keyword">true</span>) == <span class="keyword">false</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.tobool(<span class="string">"true"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.tobool(<span class="string">"0"</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.tobool(<span class="number">1</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -943,8 +1008,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.strip(<span class="string">"?hello world?"</span>, <span class="string">"?"</span>) == <span class="string">"hello world"</span></pre></li>
-        <li><pre class="example">luastring.strip(<span class="string">"!?hello world?!"</span>, <span class="string">"?!"</span>) == <span class="string">"hello world"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.strip(<span class="string">"?hello world?"</span>, <span class="string">"?"</span>) == <span class="string">"hello world"</span>)
+<span class="global">assert</span>(luastring.strip(<span class="string">"!?hello world?!"</span>, <span class="string">"?!"</span>) == <span class="string">"hello world"</span>)</pre>
     </ul>
 
 </dd>
@@ -980,9 +1045,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"!?"</span>) == <span class="string">"hello world???!!!"</span></pre></li>
-        <li><pre class="example">luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"!!!hello world???!!!"</span></pre></li>
-        <li><pre class="example">luastring.lstrip(<span class="string">"?b??!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"b??!!hello world???!!!"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"!?"</span>) == <span class="string">"hello world???!!!"</span>)
+<span class="global">assert</span>(luastring.lstrip(<span class="string">"???!!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"!!!hello world???!!!"</span>)
+<span class="global">assert</span>(luastring.lstrip(<span class="string">"?b??!!hello world???!!!"</span>, <span class="string">"?|"</span>) == <span class="string">"b??!!hello world???!!!"</span>)</pre>
     </ul>
 
 </dd>
@@ -1018,8 +1083,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.rstrip(<span class="string">"!!!hello world!!!"</span>, <span class="string">"!"</span>) == <span class="string">"!!!hello world"</span></pre></li>
-        <li><pre class="example">luastring.rstrip(<span class="string">"???hello world???"</span>, <span class="string">"."</span>) == <span class="string">"???hello world???"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.rstrip(<span class="string">"!!!hello world!!!"</span>, <span class="string">"!"</span>) == <span class="string">"!!!hello world"</span>)
+<span class="global">assert</span>(luastring.rstrip(<span class="string">"???hello world???"</span>, <span class="string">"."</span>) == <span class="string">"???hello world???"</span>)</pre>
     </ul>
 
 </dd>
@@ -1054,7 +1119,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">luastring.splitv(<span class="string">"hello world"</span>, <span class="string">"%S+"</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> }</pre>
+        <pre class="example"><span class="global">assert</span>(luastring.splitv(<span class="string">"hello world"</span>, <span class="string">"%S+"</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> })</pre>
     </ul>
 
 </dd>
@@ -1089,8 +1154,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.split(<span class="string">"hello world"</span>, <span class="string">" "</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> }</pre></li>
-        <li><pre class="example">luastring.split(<span class="string">"hello world, goodbye!"</span>, <span class="string">", "</span>) == { <span class="string">"hello world"</span>, <span class="string">"goodbye!"</span> }</pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.split(<span class="string">"hello world"</span>, <span class="string">" "</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> })
+<span class="global">assert</span>(luastring.split(<span class="string">"hello world, goodbye!"</span>, <span class="string">", "</span>) == { <span class="string">"hello world"</span>, <span class="string">"goodbye!"</span> })</pre>
     </ul>
 
 </dd>
@@ -1213,8 +1278,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"*****hello"</span></pre></li>
-        <li><pre class="example">luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"*****hello"</span>)
+<span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
     </ul>
 
 </dd>
@@ -1254,8 +1319,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"hello*****"</span></pre></li>
-        <li><pre class="example">luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"hello*****"</span>)
+<span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
     </ul>
 
 </dd>
@@ -1296,8 +1361,49 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"***hello***"</span></pre></li>
-        <li><pre class="example">luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">12</span>) == <span class="string">"****hello****"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"***hello***"</span>)
+<span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">12</span>) == <span class="string">"****hello****"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "subsequence"></a>
+    <strong>subsequence (str, min, max)</strong>
+    </dt>
+    <dd>
+    Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to destruct.
+        </li>
+        <li><span class="parameter">min</span>
+            <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+         The minimum index to begin from. By default, it's 1.
+        </li>
+        <li><span class="parameter">max</span>
+            <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+         The maximum index to include. By default, it's <code>#str</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="global">ipairs</span>(luastring.subsequence(<span class="string">"hello world"</span>, <span class="number">7</span>)) <span class="keyword">do</span>
+    <span class="global">print</span>(index, value) <span class="comment">-- 7 w ...
+</span><span class="keyword">end</span></pre>
     </ul>
 
 </dd>
@@ -1337,8 +1443,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>) == <span class="string">", World!"</span></pre></li>
-        <li><pre class="example">luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"..., World!"</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>) == <span class="string">", World!"</span>)
+<span class="global">assert</span>(luastring.ltruncate(<span class="string">"Hello, World!"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"..., World!"</span>)</pre>
     </ul>
 
 </dd>
@@ -1378,8 +1484,8 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>) == <span class="string">"hello"</span></pre></li>
-        <li><pre class="example">luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"hello..."</span></pre></li>
+        <pre class="example"><span class="global">assert</span>(luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)
+<span class="global">assert</span>(luastring.rtruncate(<span class="string">"hello world"</span>, <span class="number">5</span>, <span class="keyword">true</span>) == <span class="string">"hello..."</span>)</pre>
     </ul>
 
 </dd>
@@ -1624,6 +1730,39 @@ luastring.map(str, <span class="number">6</span>, <span class="keyword">function
 
 </dd>
 </dl>
+    <h2 class="section-header "><a name="Helper_Functions"></a>Helper Functions </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "copy_table"></a>
+    <strong>copy_table (t1)</strong>
+    </dt>
+    <dd>
+    Copy a 1D table.
+ Largely in case you'd like to slightly modify
+ <code>ascii_punctuation</code> (or another table) for functions such as <code>randomstring</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t1</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The table to copy.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
     <h2 class="section-header "><a name="Constants"></a>Constants </h2>
 
     <dl class="function">
@@ -1824,7 +1963,7 @@ luastring.map(str, <span class="number">6</span>, <span class="keyword">function
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-05-07 14:16:25 </i>
+<i style="float:right;">Last updated 2022-05-08 21:45:32 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

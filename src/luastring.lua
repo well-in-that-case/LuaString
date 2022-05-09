@@ -137,10 +137,11 @@ end
 
 --- Checks if every byte of this string is a valid ASCII digit.
 -- @tparam string str The string to check.
--- @usage luastring.isdigit("123456789") == true
--- @usage luastring.isdigit("1234567 9") == false
--- @usage luastring.isdigit("1234567.9") == false
--- @usage luastring.isdigit("12345678a") == false
+-- @usage
+-- assert(luastring.isdigit("123456789") == true)
+-- assert(luastring.isdigit("1234567 9") == false)
+-- assert(luastring.isdigit("1234567.9") == false)
+-- assert(luastring.isdigit("12345678a") == false)
 -- @treturn boolean
 function luastring.isdigit(str)
     return strfind(str,'^%d+$') == 1
@@ -149,8 +150,9 @@ end
 --- Checks if every byte of this string is within the valid ASCII byte range.
 -- As such, presense of emojis, invisible characters, and other multi-byte characters will return <code>false</code>.
 -- @tparam string str The string to check for ASCII compatibility.
--- @usage luastring.isascii("Hello, World!") == true
--- @usage luastring.isacsii("Hello, World! 🙂") == false
+-- @usage
+-- assert(luastring.isascii("Hello, World!") == true)
+-- assert(luastring.isacsii("Hello, World! 🙂") == false)
 -- @treturn boolean
 function luastring.isascii(str)
     return strfind(str, "[\128-\255]") == nil
@@ -158,9 +160,10 @@ end
 
 --- Checks if every byte of this string is a valid ASCII lowercase alphabetic character.
 -- @tparam string str The string to check.
--- @usage luastring.islower("helloworld") == true
--- @usage luastring.islower("hell9world") == false
--- @usage luastring.islower("hell world") == false
+-- @usage
+-- assert(luastring.islower("helloworld") == true)
+-- assert(luastring.islower("hell9world") == false)
+-- assert(luastring.islower("hell world") == false)
 -- @treturn boolean
 function luastring.islower(str)
     return strfind(str, "^%l+$") == 1
@@ -168,10 +171,11 @@ end
 
 --- Checks if every byte of this string is a valid ASCII alphabetic character.
 -- @tparam string str The string to check.
--- @usage luastring.isalpha("abcdefghi") == true
--- @usage luastring.isalpha("abcdef9hi") == false
--- @usage luastring.isalpha("abcdef.hi") == false
--- @usage luastring.isalpha("abcdef hi") == false
+-- @usage
+-- assert(luastring.isalpha("abcdefghi") == true)
+-- assert(luastring.isalpha("abcdef9hi") == false)
+-- assert(luastring.isalpha("abcdef.hi") == false)
+-- assert(luastring.isalpha("abcdef hi") == false)
 -- @treturn boolean
 function luastring.isalpha(str)
     return strfind(str,'^%a+$') == 1
@@ -179,10 +183,11 @@ end
 
 --- Checks if every byte of this string is a valid ASCII uppercase alphabetic character.
 -- @tparam string str The string to check.
--- @usage luastring.isupper("HELLOZWORLD") == true
--- @usage luastring.isupper("HELLO WORLD") == false
--- @usage luastring.isupper("HELLO1WORLD") == false
--- @usage luastring.isupper("HELLOoWORLD") == false
+-- @usage
+-- assert(luastring.isupper("HELLOZWORLD") == true)
+-- assert(luastring.isupper("HELLO WORLD") == false)
+-- assert(luastring.isupper("HELLO1WORLD") == false)
+-- assert(luastring.isupper("HELLOoWORLD") == false)
 -- @treturn boolean
 function luastring.isupper(str)
     return strfind(str, "^%u+$") == 1
@@ -190,9 +195,10 @@ end
 
 --- Checks if every byte of this string is a valid ASCII alphanumeric character.
 -- @tparam string str The string to check.
--- @usage luastring.isalnum("abcde12345") == true
--- @usage luastring.isalnum("abcde 2345") == false
--- @usage luastring.isalnum("abcde.2345") == false
+-- @usage
+-- assert(luastring.isalnum("abcde12345") == true)
+-- assert(luastring.isalnum("abcde 2345") == false)
+-- assert(luastring.isalnum("abcde.2345") == false)
 -- @treturn boolean
 function luastring.isalnum(str)
     return strfind(str,'^%w+$') == 1
@@ -201,9 +207,11 @@ end
 --- Checks if this string is a valid Lua identifier.
 -- For example: it does not begin with a number, fully alphanumeric, contains at least one alphabetic character, may contain an underscore.
 -- @tparam string str The string to check.
--- @usage luastring.isidentifier("Hello, World!") == false
--- @usage luastring.isidentifier("Hello_World!") == false
--- @usage luastring.isidentifier("Hello_World") == true
+-- @usage
+-- assert(luastring.isidentifier("Hello, World!") == false)
+-- assert(luastring.isidentifier("Hello_World!") == false)
+-- assert(luastring.isidentifier("Hello_World") == true)
+-- @treturn boolean
 function luastring.isidentifier(str)
     if tonumber(strsub(str, 1, 1)) ~= nil then
         return false
@@ -237,6 +245,7 @@ end
 -- local lastidx = luastring.rfind(str, "hello")
 -- assert(lastidx == 31) -- Lua indices advance us by 1.
 -- assert(str:sub(lastidx) == "hello")
+-- @treturn number
 function luastring.rfind(str, substr)
     str = strreverse(str)
     substr = strreverse(substr)
@@ -245,7 +254,9 @@ end
 
 --- Checks if this string is entirely composed of ASCII whitespace characters.
 -- @tparam string str The string to check.
--- @usage luastring.iswhitespace(" \t \n\r\n\r") == true
+-- @usage
+-- assert(luastring.iswhitespace(" \t \n\r\n\r") == true)
+-- assert(luastring.iswhitespace("\t\n\r\nabc/") == false)
 -- @treturn boolean
 function luastring.iswhitespace(str)
     return strfind(str, "^%s+$") == 1
@@ -254,7 +265,9 @@ end
 --- Counts how many times <code>substr</code> appears inside <code>str</code>.
 -- @tparam string str The string to check.
 -- @tparam string substr The substring you're checking for.
--- @usage luastring.count("hello world!", "l") == 3
+-- @usage
+-- assert(luastring.count("hello world!", "l") == 3)
+-- assert(luastring.count("hello world!", "z") == 0)
 -- @treturn number
 function luastring.count(str, substr)
     local last, where = strfind(str, substr, 1, true)
@@ -272,8 +285,9 @@ end
 
 --- Checks if this string is <code>nil</code> or an empty string.
 -- @tparam string str The string to check.
--- @usage luastring.nil_or_empty("") == true
--- @usage luastring.nil_or_empty(nil) == true
+-- @usage
+-- assert(luastring.nil_or_empty("") == true)
+-- assert(luastring.nil_or_empty(nil) == true)
 -- @treturn boolean This returns <code>true</code> if the string is nil or empty.
 function luastring.nil_or_empty(str)
     return str == nil or str == ""
@@ -281,9 +295,11 @@ end
 
 --- Checks if this string contains the substring <code>substr</code>.
 -- This is roughly syntactic sugar for a plain-text string search.
--- It's wise to use <code>string.find(str, pattern, 1, true)</code> if you're desperate for performance, because it avoids another function call.
 -- @tparam string str The string to check.
 -- @tparam string substr The substring you may or may not expect <code>str</code> to contain.
+-- @usage
+-- assert(luastring.contains("hello world", "rld") == true)
+-- assert(luastring.contains("hello world", "abc") == false)
 -- @treturn boolean
 function luastring.contains(str, substr)
     return strfind(str, substr, 1, true) ~= nil
@@ -292,8 +308,9 @@ end
 --- Checks if this string ends with <code>substr</code>.
 -- @tparam string str The string to check.
 -- @tparam string substr The substring to check the end of <code>str</code> for.
--- @usage luastring.endswith("hello world", "world") == true
--- @usage luastring.endswith("hello world", "truck") == false
+-- @usage
+-- assert(luastring.endswith("hello world", "world") == true)
+-- assert(luastring.endswith("hello world", "truck") == false)
 -- @treturn boolean
 function luastring.endswith(str, substr)
     return strsub(str, #str - #substr + 1) == substr
@@ -302,8 +319,9 @@ end
 --- Checks if this string begins with <code>substr</code>.
 -- @tparam string str The string to check.
 -- @tparam string substr The substring to check the start of <code>str</code> for.
--- @usage luastring.startswith("hello world", "hello") == true
--- @usage luastring.startswith("hello world", "truck") == false
+-- @usage
+-- assert(luastring.startswith("hello world", "hello") == true)
+-- assert(luastring.startswith("hello world", "truck") == false)
 -- @treturn boolean
 function luastring.startswith(str, substr)
     return strsub(str, 1, #substr) == substr
@@ -315,7 +333,8 @@ end
 --- Creates a new title-case string from <code>str</code>.
 -- There's no universal title-case specification, but this will capitalize the first letter of any word that is not: <code>"of", "the", "at"</code>, excluding from the first word.
 -- @tparam string str The string to convert.
--- @usage luastring.title("the paranormal of the activity") == "The Paranormal of the Activity"
+-- @usage
+-- assert(luastring.title("the paranormal of the activity") == "The Paranormal of the Activity")
 -- @treturn string
 function luastring.title(str)
     local res = {}
@@ -352,10 +371,27 @@ function luastring.title(str)
     return tableconcat(res)
 end
 
+--- Creates a table with an element for each character of <code>str</code>.
+-- @tparam string str The string to deconstruct.
+-- @usage
+-- for index, value in ipairs(luastring.sequence("hello")) do
+--     print(index, value) -- 1 h ...
+-- end
+-- @treturn table This table will be empty for empty strings.
+function luastring.sequence(str)
+    local res = {}
+    for i = 1, #str do
+        res[i] = strsub(str, i, i)
+    end
+    return res
+end
+
 --- Converts a number to a more human-readable value.
 -- For example, <code>"100000"</code> will become <code>"100,000"</code>.
 -- @tparam string|number str The number to parse.
--- @usage luastring.commaify("10000000") == "10,000,000"
+-- @usage
+-- assert(luastring.commaify("-100000") == "-100,000")
+-- assert(luastring.commaify("10000000") == "10,000,000")
 -- @treturn string
 function luastring.commaify(str)
     -- http://lua-users.org/wiki/FormattingNumbers
@@ -397,9 +433,10 @@ end
 -- This optionally will parse integers too.
 -- @tparam string|number str The string or number to convert.
 -- @tparam boolean ints Whether or not to process integral values.
--- @usage luastring.tobool("true") == true
--- @usage luastring.tobool("0", true) == true
--- @usage luastring.tobool(1, true) == false
+-- @usage
+-- assert(luastring.tobool("true") == true)
+-- assert(luastring.tobool("0", true) == true)
+-- assert(luastring.tobool(1, true) == false)
 -- @treturn boolean|nil Returns <code>nil</code> if no conversion could be made.
 function luastring.tobool(str, ints)
     local c1 = luabools[str] or luabools[str:lower()]
@@ -419,8 +456,9 @@ end
 -- This stops once a character not meant to be removed is discovered.
 -- @tparam string str The string to strip.
 -- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage luastring.strip("?hello world?", "?") == "hello world"
--- @usage luastring.strip("!?hello world?!", "?!") == "hello world"
+-- @usage
+-- assert(luastring.strip("?hello world?", "?") == "hello world")
+-- assert(luastring.strip("!?hello world?!", "?!") == "hello world")
 -- @treturn string
 function luastring.strip(str, chars)
     local _, where = strfind(str, "[^" .. chars .. "+]")
@@ -438,9 +476,10 @@ end
 -- This stops once a character not meant to be removed is discovered.
 -- @tparam string str The string to strip.
 -- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!"
--- @usage luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!"
--- @usage luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!"
+-- @usage
+-- assert(luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!")
+-- assert(luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!")
+-- assert(luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!")
 -- @treturn string
 function luastring.lstrip(str, chars)
     local _, where = strfind(str, "[^" .. chars .. "+]")
@@ -451,8 +490,9 @@ end
 -- This stops once a character not meant to be removed is discovered.
 -- @tparam string str The string to strip.
 -- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world"
--- @usage luastring.rstrip("???hello world???", ".") == "???hello world???"
+-- @usage
+-- assert(luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world")
+-- assert(luastring.rstrip("???hello world???", ".") == "???hello world???")
 -- @treturn string
 function luastring.rstrip(str, chars)
     local tmp = strreverse(str)
@@ -467,7 +507,8 @@ end
 --- Split a string using a pattern.
 -- @tparam string str The string to split.
 -- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
--- @usage luastring.splitv("hello world", "%S+") == { "hello", "world" }
+-- @usage
+-- assert(luastring.splitv("hello world", "%S+") == { "hello", "world" })
 -- @treturn table This will return an empty table if no matches are made.
 function luastring.splitv(str, pattern)
     local res = {}
@@ -482,8 +523,9 @@ end
 --- Returns a table containing substrings that reside in-between the delimiter.
 -- @tparam string str The string to split.
 -- @tparam string delimiter The delimiter to split the string upon. Any length is valid.
--- @usage luastring.split("hello world", " ") == { "hello", "world" }
--- @usage luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" }
+-- @usage
+-- assert(luastring.split("hello world", " ") == { "hello", "world" })
+-- assert(luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" })
 -- @treturn boolean
 function luastring.split(str, delimiter)
     local result = {}
@@ -546,8 +588,9 @@ end
 -- @tparam string str The string to justify.
 -- @tparam string character The single-length character to justify <code>str</code> with.
 -- @tparam number len This should be set to the integeral length you expect <code>str</code> to be after justification.
--- @usage luastring.ljustify("hello", "*", 10) == "*****hello"
--- @usage luastring.ljustify("hello", "*", 5) == "hello"
+-- @usage
+-- assert(luastring.ljustify("hello", "*", 10) == "*****hello")
+-- assert(luastring.ljustify("hello", "*", 5) == "hello")
 -- @treturn string
 function luastring.ljustify(str, character, len)
     return strrep(character, len - #str) .. str
@@ -558,8 +601,9 @@ end
 -- @tparam string str The string to justify.
 -- @tparam string character The single-length character to justify <code>str</code> with.
 -- @tparam number len This should be set to the integeral length you expect <code>str</code> to be after justification.
--- @usage luastring.rjustify("hello", "*", 10) == "hello*****"
--- @usage luastring.rjustify("hello", "*", 5) == "hello"
+-- @usage
+-- assert(luastring.rjustify("hello", "*", 10) == "hello*****")
+-- assert(luastring.rjustify("hello", "*", 5) == "hello")
 -- @treturn string
 function luastring.rjustify(str, character, len)
     return str .. strrep(character, len - #str)
@@ -571,12 +615,39 @@ end
 -- @tparam string str The string to justify.
 -- @tparam string character The single-length character to justify <code>str</code> with.
 -- @tparam number len This should be set to the integeral length you expect <code>str</code> to be after justification.
--- @usage luastring.lrjustify("hello", "*", 10) == "***hello***"
--- @usage luastring.lrjustify("hello", "*", 12) == "****hello****"
+-- @usage
+-- assert(luastring.lrjustify("hello", "*", 10) == "***hello***")
+-- assert(luastring.lrjustify("hello", "*", 12) == "****hello****")
 -- @treturn string
 function luastring.lrjustify(str, character, len)
     local justification = strrep(character, mathciel((len - #str) / 2))
     return justification .. str .. justification
+end
+
+--- Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.
+-- @tparam string str The string to destruct.
+-- @tparam number|nil min The minimum index to begin from. By default, it's 1.
+-- @tparam number|nil max The maximum index to include. By default, it's <code>#str</code>.
+-- @usage
+-- for index, value in ipairs(luastring.subsequence("hello world", 7)) do
+--     print(index, value) -- 7 w ...
+-- end
+-- @treturn table
+function luastring.subsequence(str, min, max)
+    min = min or 1
+    max = max or #str
+    local res = {}
+    local len = 0
+    for i = min, max do
+        local char = strsub(str, i, i)
+        if char then
+            len = len + 1
+            res[len] = char
+        else
+            break
+        end
+    end
+    return res
 end
 
 --- Truncates a string from the left to meet the <code>length</code> specification.
@@ -584,8 +655,9 @@ end
 -- @tparam string str The string to truncate, if needed.
 -- @tparam number length An integral number describing the desired length of <code>str</code>.
 -- @tparam boolean|nil ellipsis A boolean specifying whether or not to append an ellipsis to the truncated result.
--- @usage luastring.ltruncate("Hello, World!", 5) == ", World!"
--- @usage luastring.ltruncate("Hello, World!", 5, true) == "..., World!"
+-- @usage
+-- assert(luastring.ltruncate("Hello, World!", 5) == ", World!")
+-- assert(luastring.ltruncate("Hello, World!", 5, true) == "..., World!")
 -- @treturn string The string remains unchanged if it doesn't exceed <code>length</code>.
 function luastring.ltruncate(str, length, ellipsis)
     if #str > length then
@@ -604,8 +676,9 @@ end
 -- @tparam string str The string to truncate, if needed.
 -- @tparam number length An integral number describing the desired length of <code>str</code>.
 -- @tparam boolean|nil ellipsis A boolean specifying whether or not to append an ellipsis to the truncated result.
--- @usage luastring.rtruncate("hello world", 5) == "hello"
--- @usage luastring.rtruncate("hello world", 5, true) == "hello..."
+-- @usage
+-- assert(luastring.rtruncate("hello world", 5) == "hello")
+-- assert(luastring.rtruncate("hello world", 5, true) == "hello...")
 -- @treturn string The string remains unchanged if it doesn't exceed <code>length</code>.
 function luastring.rtruncate(str, length, ellipsis)
     if #str > length then
@@ -745,6 +818,22 @@ function luastring.map(str, size, callback)
     for i = 1, #str, size do
         callback(strsub(str, i, i + size - 1))
     end
+end
+
+--- Helper Functions
+-- @section helper
+
+--- Copy a 1D table.
+-- Largely in case you'd like to slightly modify
+-- <code>ascii_punctuation</code> (or another table) for functions such as <code>randomstring</code>.
+-- @tparam string t1 The table to copy.
+-- @treturn table
+function luastring.copy_table(t1)
+    local res = {}
+    for key, value in pairs(t1) do
+        res[key] = value
+    end
+    return res
 end
 
 --- Constants
