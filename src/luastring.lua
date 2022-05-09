@@ -81,6 +81,16 @@ local luabools = {
     ["false "] = false
 }
 
+-- Postfixes used to convert strings like "1K" into "1000".
+-- Only supports thousands to quintillions until I find a better way to automate it.
+local numeric_postfixes = {
+    ["k"] = 10^3,
+    ["m"] = 10^6,
+    ["b"] = 10^9,
+    ["t"] = 10^12,
+    ["q"] = 10^15,
+}
+
 local strrep = string.rep
 local strsub = string.sub
 local strchr = string.char
@@ -439,7 +449,7 @@ end
 -- assert(luastring.tobool(1, true) == false)
 -- @treturn boolean|nil Returns <code>nil</code> if no conversion could be made.
 function luastring.tobool(str, ints)
-    local c1 = luabools[str] or luabools[str:lower()]
+    local c1 = luabools[str] or luabools[strlower(str)]
     if c1 ~= nil then
         return c1
     elseif ints == true then
@@ -501,6 +511,34 @@ function luastring.rstrip(str, chars)
         return str
     else
         return strsub(str, 1, #tmp - where + 1)
+    end
+end
+
+--- Converts <code>"1k"</code> into <code>"1000"</code>.
+-- This returns a float by default. It only supports thousands to quintillions ("k" to "q") currently.
+-- @tparam string str The numeric string to convert.
+-- @tparam boolean floor A boolean specifying whether or not to round-down the result.
+-- @usage
+-- assert(luastring.postfix("1k") == 1000.0)
+-- assert(luastring.postfix("1k", true) == 1000)
+-- @treturn number|nil
+-- <ul>
+-- <li>Returns <code>nil</code> when the conversion fails.</li>
+-- <li>The string may not be number-coercible prior to the suffix.</li>
+-- </ul>
+function luastring.postfix(str, floor)
+    local suffix = strlower(strsub(str, -1))
+    local beside = strsub(str, 1, #str - 1)
+    local numb = tonumber(beside)
+    local res = numeric_postfixes[suffix]
+    if res == nil or numb == nil then
+        return nil
+    else
+        if floor then
+            return math.floor(res * numb)
+        else
+            return res * numb
+        end
     end
 end
 
@@ -607,6 +645,33 @@ end
 -- @treturn string
 function luastring.rjustify(str, character, len)
     return str .. strrep(character, len - #str)
+end
+
+--- Replaces only the first occurance of <code>new</code>.
+-- @tparam string str The string to partially replace.
+-- @tparam string old The old substring you wish to replace.
+-- @tparam string new The new substring to replace <code>old</code> with.
+-- @usage
+-- assert(luastring.replace_first("world world", "world", "hello") == "hello world")
+-- assert(luastring.replace_first("world world", "truck", "hello") == "world world")
+-- @treturn string The original string is returned if no replacement was made.
+function luastring.replace_first(str, old, new)
+    local state = 1
+    while state == 1 do
+        local result, _ = strgsub(str, old, function (s)
+            if state == 1 then
+                state = 0
+                return new
+            else
+                return s
+            end
+        end)
+        if result then
+            str = result
+        end
+        break
+    end
+    return str
 end
 
 --- Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.
