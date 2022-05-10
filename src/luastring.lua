@@ -482,6 +482,17 @@ function luastring.strip(str, chars)
     end
 end
 
+--- Compares two strings with agnostic capitalization.
+-- @tparam string s1 The first string to compare.
+-- @tparam string s2 The second string to compare against <code>s1</code>.
+-- @usage
+-- assert(luastring.casefold("HELLO", "hello") == true)
+-- assert(luastring.casefold("HELLO", "truCk") == false)
+-- @treturn boolean
+function luastring.casefold(s1, s2)
+    return strlower(s1) == strlower(s2)
+end
+
 --- Strips any character from within <code>chars</code> from the left-side of the string.
 -- This stops once a character not meant to be removed is discovered.
 -- @tparam string str The string to strip.
