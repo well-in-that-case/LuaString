@@ -29,6 +29,8 @@ SOFTWARE.
 -- <li>Fully compatible with ANSI C, LuaJIT, and Lua 5.1+.</li>
 -- <li>Designed for maintainability, compatibility, and portability.</li>
 -- </ul>
+-- <br>
+-- The fully-featured module is less than 6kb if you vouch for the <a href="https://github.com/well-in-that-case/LuaString/blob/main/bin/minified_luastring.lua">minified file.</a>
 -- <h1>License</h1>
 -- LuaString is licensed under MIT. <a href="https://github.com/well-in-that-case/LuaString/blob/main/LICENSE">View the terms here.</a>
 -- <br><br><i>LuaString is an extension of the <code>string</code> library:</i>
