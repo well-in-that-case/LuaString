@@ -29,8 +29,12 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Predicates">Predicates </a></li>
-<li><a href="#Manipulation">Manipulation </a></li>
+<li><a href="#String_Predicates">String Predicates </a></li>
+<li><a href="#Substring_Operations">Substring Operations </a></li>
+<li><a href="#String_Parsing">String Parsing </a></li>
+<li><a href="#String_Justification">String Justification </a></li>
+<li><a href="#String_Modification">String Modification </a></li>
+<li><a href="#String_Generation">String Generation </a></li>
 <li><a href="#Iterators">Iterators </a></li>
 <li><a href="#Helper_Functions">Helper Functions </a></li>
 <li><a href="#Constants">Constants </a></li>
@@ -67,7 +71,7 @@
     </ul>
 
 
-<h2><a href="#Predicates">Predicates </a></h2>
+<h2><a href="#String_Predicates">String Predicates </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#isdigit">isdigit (str)</a></td>
@@ -79,19 +83,19 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#islower">islower (str)</a></td>
-	<td class="summary">Checks if every byte of this string is a valid ASCII lowercase alphabetic character.</td>
+	<td class="summary">Checks if every byte of this string is a lowercase alphabetic character.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isalpha">isalpha (str)</a></td>
-	<td class="summary">Checks if every byte of this string is a valid ASCII alphabetic character.</td>
+	<td class="summary">Checks if every byte of this string is an alphabetic character.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isupper">isupper (str)</a></td>
-	<td class="summary">Checks if every byte of this string is a valid ASCII uppercase alphabetic character.</td>
+	<td class="summary">Checks if every byte of this string is an uppercase alphabetic character.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isalnum">isalnum (str)</a></td>
-	<td class="summary">Checks if every byte of this string is a valid ASCII alphanumeric character.</td>
+	<td class="summary">Checks if every byte of this string is an alphanumeric character.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isidentifier">isidentifier (str)</a></td>
@@ -130,35 +134,19 @@
 	<td class="summary">Checks if this string begins with <code>substr</code>.</td>
 	</tr>
 </table>
-<h2><a href="#Manipulation">Manipulation </a></h2>
+<h2><a href="#Substring_Operations">Substring Operations </a></h2>
 <table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#title">title (str)</a></td>
-	<td class="summary">Creates a new title-case string from <code>str</code>.</td>
-	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sequence">sequence (str)</a></td>
 	<td class="summary">Creates a table with an element for each character of <code>str</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#commaify">commaify (str)</a></td>
-	<td class="summary">Converts a number to a more human-readable value.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#split_lines">split_lines (str)</a></td>
 	<td class="summary">Returns a table containing an element for each line inside this string.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tobool">tobool (str, ints)</a></td>
-	<td class="summary">Converts a string to a boolean, if possible.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#strip">strip (str, chars)</a></td>
 	<td class="summary">Strips any character from within <code>chars</code> from both sides of the string.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#casefold">casefold (s1, s2)</a></td>
-	<td class="summary">Compares two strings with agnostic capitalization.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#lstrip">lstrip (str, chars)</a></td>
@@ -167,10 +155,6 @@
 	<tr>
 	<td class="name" nowrap><a href="#rstrip">rstrip (str, chars)</a></td>
 	<td class="summary">Strips any character from within <code>chars</code> from the right-side of the string.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#postfix">postfix (str, floor)</a></td>
-	<td class="summary">Converts <code>"1k"</code> into <code>"1000"</code>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#splitv">splitv (str, pattern)</a></td>
@@ -182,32 +166,60 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#partition">partition (str, delimiter)</a></td>
-	<td class="summary">Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.</td>
+	<td class="summary">Returns one part of the string before the first <code>delimiter</code>, and one after.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#rpartition">rpartition (str, delimiter)</a></td>
-	<td class="summary">Splits a string into two parts:
- one part before the first right-side occurance of <code>delimiter</code>, and one after.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ljustify">ljustify (str, character, len)</a></td>
-	<td class="summary">Inserts <code>character</code> into the left-side of the string until the string's length meets <code>len</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rjustify">rjustify (str, character, len)</a></td>
-	<td class="summary">Inserts <code>character</code> into the right-side of the string until the string's length meets <code>len</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#replace_first">replace_first (str, old, new)</a></td>
-	<td class="summary">Replaces only the first occurance of <code>new</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#lrjustify">lrjustify (str, character, len)</a></td>
-	<td class="summary">Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.</td>
+	<td class="summary">Returns one part of the string before the last <code>delimiter</code>, and one after.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#subsequence">subsequence (str, min, max)</a></td>
 	<td class="summary">Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.</td>
+	</tr>
+</table>
+<h2><a href="#String_Parsing">String Parsing </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#title">title (str)</a></td>
+	<td class="summary">Creates a new title-case string from <code>str</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commaify">commaify (str)</a></td>
+	<td class="summary">Converts a number to a more human-readable value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tobool">tobool (str, ints)</a></td>
+	<td class="summary">Converts a string to a boolean, if possible.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#casefold">casefold (s1, s2)</a></td>
+	<td class="summary">Compares two strings with agnostic capitalization.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#postfix">postfix (str, floor)</a></td>
+	<td class="summary">Converts <code>"1k"</code> into <code>"1000"</code>.</td>
+	</tr>
+</table>
+<h2><a href="#String_Justification">String Justification </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ljustify">ljustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>char</code> into the start of the string until the length meets <code>len</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rjustify">rjustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>char</code> into the end of the string until the length meets <code>len</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lrjustify">lrjustify (str, character, len)</a></td>
+	<td class="summary">Inserts <code>char</code> into the start & end of the string until the length meets <code>len</code>.</td>
+	</tr>
+</table>
+<h2><a href="#String_Modification">String Modification </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#replace_first">replace_first (str, old, new)</a></td>
+	<td class="summary">Replaces only the first occurance of <code>old</code> with <code>new</code>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ltruncate">ltruncate (str, length, ellipsis)</a></td>
@@ -223,11 +235,14 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#replace_many">replace_many (str, old, new, limit)</a></td>
-	<td class="summary">Replaces several occurances of <code>old</code> inside <code>str</code>.</td>
+	<td class="summary">Replaces several occurances of <code>old</code> inside <code>str</code> with <code>new</code>.</td>
 	</tr>
+</table>
+<h2><a href="#String_Generation">String Generation </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#randomstring">randomstring (length, excluded_chars)</a></td>
-	<td class="summary">Generates a random string from the ASCII-printable (32-126) byte range.</td>
+	<td class="summary">Generates a random string from printable ASCII characters.</td>
 	</tr>
 </table>
 <h2><a href="#Iterators">Iterators </a></h2>
@@ -300,7 +315,7 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Predicates"></a>Predicates </h2>
+    <h2 class="section-header "><a name="String_Predicates"></a>String Predicates </h2>
 
     <dl class="function">
     <dt>
@@ -375,7 +390,7 @@
     <strong>islower (str)</strong>
     </dt>
     <dd>
-    Checks if every byte of this string is a valid ASCII lowercase alphabetic character.
+    Checks if every byte of this string is a lowercase alphabetic character.
 
 
     <h3>Parameters:</h3>
@@ -408,7 +423,7 @@
     <strong>isalpha (str)</strong>
     </dt>
     <dd>
-    Checks if every byte of this string is a valid ASCII alphabetic character.
+    Checks if every byte of this string is an alphabetic character.
 
 
     <h3>Parameters:</h3>
@@ -442,7 +457,7 @@
     <strong>isupper (str)</strong>
     </dt>
     <dd>
-    Checks if every byte of this string is a valid ASCII uppercase alphabetic character.
+    Checks if every byte of this string is an uppercase alphabetic character.
 
 
     <h3>Parameters:</h3>
@@ -476,7 +491,7 @@
     <strong>isalnum (str)</strong>
     </dt>
     <dd>
-    Checks if every byte of this string is a valid ASCII alphanumeric character.
+    Checks if every byte of this string is an alphanumeric character.
 
 
     <h3>Parameters:</h3>
@@ -816,41 +831,9 @@
 
 </dd>
 </dl>
-    <h2 class="section-header "><a name="Manipulation"></a>Manipulation </h2>
+    <h2 class="section-header "><a name="Substring_Operations"></a>Substring Operations </h2>
 
     <dl class="function">
-    <dt>
-    <a name = "title"></a>
-    <strong>title (str)</strong>
-    </dt>
-    <dd>
-    Creates a new title-case string from <code>str</code>.
- There's no universal title-case specification, but this will capitalize the first letter of any word that is not: <code>"of", "the", "at"</code>, excluding from the first word.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to convert.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.title(<span class="string">"the paranormal of the activity"</span>) == <span class="string">"The Paranormal of the Activity"</span>)</pre>
-    </ul>
-
-</dd>
     <dt>
     <a name = "sequence"></a>
     <strong>sequence (str)</strong>
@@ -881,39 +864,6 @@
         <pre class="example"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="global">ipairs</span>(luastring.sequence(<span class="string">"hello"</span>)) <span class="keyword">do</span>
     <span class="global">print</span>(index, value) <span class="comment">-- 1 h ...
 </span><span class="keyword">end</span></pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "commaify"></a>
-    <strong>commaify (str)</strong>
-    </dt>
-    <dd>
-    Converts a number to a more human-readable value.
- For example, <code>"100000"</code> will become <code>"100,000"</code>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
-         The number to parse.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.commaify(<span class="string">"-100000"</span>) == <span class="string">"-100,000"</span>)
-<span class="global">assert</span>(luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span>)</pre>
     </ul>
 
 </dd>
@@ -957,44 +907,6 @@
 
 </dd>
     <dt>
-    <a name = "tobool"></a>
-    <strong>tobool (str, ints)</strong>
-    </dt>
-    <dd>
-    Converts a string to a boolean, if possible.
- This optionally will parse integers too.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
-         The string or number to convert.
-        </li>
-        <li><span class="parameter">ints</span>
-            <span class="types"><span class="type">boolean</span></span>
-         Whether or not to process integral values.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
-        Returns <code>nil</code> if no conversion could be made.
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.tobool(<span class="string">"true"</span>) == <span class="keyword">true</span>)
-<span class="global">assert</span>(luastring.tobool(<span class="string">"0"</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>)
-<span class="global">assert</span>(luastring.tobool(<span class="number">1</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
     <a name = "strip"></a>
     <strong>strip (str, chars)</strong>
     </dt>
@@ -1028,42 +940,6 @@
     <ul>
         <pre class="example"><span class="global">assert</span>(luastring.strip(<span class="string">"?hello world?"</span>, <span class="string">"?"</span>) == <span class="string">"hello world"</span>)
 <span class="global">assert</span>(luastring.strip(<span class="string">"!?hello world?!"</span>, <span class="string">"?!"</span>) == <span class="string">"hello world"</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "casefold"></a>
-    <strong>casefold (s1, s2)</strong>
-    </dt>
-    <dd>
-    Compares two strings with agnostic capitalization.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">s1</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The first string to compare.
-        </li>
-        <li><span class="parameter">s2</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The second string to compare against <code>s1</code>.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.casefold(<span class="string">"HELLO"</span>, <span class="string">"hello"</span>) == <span class="keyword">true</span>)
-<span class="global">assert</span>(luastring.casefold(<span class="string">"HELLO"</span>, <span class="string">"truCk"</span>) == <span class="keyword">false</span>)</pre>
     </ul>
 
 </dd>
@@ -1143,47 +1019,6 @@
 
 </dd>
     <dt>
-    <a name = "postfix"></a>
-    <strong>postfix (str, floor)</strong>
-    </dt>
-    <dd>
-    Converts <code>"1k"</code> into <code>"1000"</code>.
- This returns a float by default. It only supports thousands to quintillions ("k" to "q") currently.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The numeric string to convert.
-        </li>
-        <li><span class="parameter">floor</span>
-            <span class="types"><span class="type">boolean</span></span>
-         A boolean specifying whether or not to round-down the result.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
-
- <ul>
- <li>Returns <code>nil</code> when the conversion fails.</li>
- <li>The string may not be number-coercible prior to the suffix.</li>
- </ul>
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.postfix(<span class="string">"1k"</span>) == <span class="number">1000.0</span>)
-<span class="global">assert</span>(luastring.postfix(<span class="string">"1k"</span>, <span class="keyword">true</span>) == <span class="number">1000</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
     <a name = "splitv"></a>
     <strong>splitv (str, pattern)</strong>
     </dt>
@@ -1259,7 +1094,7 @@
     <strong>partition (str, delimiter)</strong>
     </dt>
     <dd>
-    Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.
+    Returns one part of the string before the first <code>delimiter</code>, and one after.
 
 
     <h3>Parameters:</h3>
@@ -1300,8 +1135,7 @@
     <strong>rpartition (str, delimiter)</strong>
     </dt>
     <dd>
-    Splits a string into two parts:
- one part before the first right-side occurance of <code>delimiter</code>, and one after.
+    Returns one part of the string before the last <code>delimiter</code>, and one after.
 
 
     <h3>Parameters:</h3>
@@ -1334,170 +1168,6 @@
 <span class="keyword">local</span> before, after = luastring.rpartition(<span class="string">"hello?there?world"</span>, <span class="string">"."</span>)
 <span class="global">assert</span>(before == <span class="string">"hello?there?world"</span>)
 <span class="global">assert</span>(after == <span class="keyword">nil</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "ljustify"></a>
-    <strong>ljustify (str, character, len)</strong>
-    </dt>
-    <dd>
-    Inserts <code>character</code> into the left-side of the string until the string's length meets <code>len</code>.
- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to justify.
-        </li>
-        <li><span class="parameter">character</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The single-length character to justify <code>str</code> with.
-        </li>
-        <li><span class="parameter">len</span>
-            <span class="types"><span class="type">number</span></span>
-         This should be set to the integeral length you expect <code>str</code> to be after justification.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"*****hello"</span>)
-<span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "rjustify"></a>
-    <strong>rjustify (str, character, len)</strong>
-    </dt>
-    <dd>
-    Inserts <code>character</code> into the right-side of the string until the string's length meets <code>len</code>.
- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to justify.
-        </li>
-        <li><span class="parameter">character</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The single-length character to justify <code>str</code> with.
-        </li>
-        <li><span class="parameter">len</span>
-            <span class="types"><span class="type">number</span></span>
-         This should be set to the integeral length you expect <code>str</code> to be after justification.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"hello*****"</span>)
-<span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "replace_first"></a>
-    <strong>replace_first (str, old, new)</strong>
-    </dt>
-    <dd>
-    Replaces only the first occurance of <code>new</code>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to partially replace.
-        </li>
-        <li><span class="parameter">old</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The old substring you wish to replace.
-        </li>
-        <li><span class="parameter">new</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The new substring to replace <code>old</code> with.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        The original string is returned if no replacement was made.
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.replace_first(<span class="string">"world world"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>) == <span class="string">"hello world"</span>)
-<span class="global">assert</span>(luastring.replace_first(<span class="string">"world world"</span>, <span class="string">"truck"</span>, <span class="string">"hello"</span>) == <span class="string">"world world"</span>)</pre>
-    </ul>
-
-</dd>
-    <dt>
-    <a name = "lrjustify"></a>
-    <strong>lrjustify (str, character, len)</strong>
-    </dt>
-    <dd>
-    Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.
- Since this is two-sided justification, the padding length will always round up.
- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to justify.
-        </li>
-        <li><span class="parameter">character</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The single-length character to justify <code>str</code> with.
-        </li>
-        <li><span class="parameter">len</span>
-            <span class="types"><span class="type">number</span></span>
-         This should be set to the integeral length you expect <code>str</code> to be after justification.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"***hello***"</span>)
-<span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">12</span>) == <span class="string">"****hello****"</span>)</pre>
     </ul>
 
 </dd>
@@ -1539,6 +1209,362 @@
         <pre class="example"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="global">ipairs</span>(luastring.subsequence(<span class="string">"hello world"</span>, <span class="number">7</span>)) <span class="keyword">do</span>
     <span class="global">print</span>(index, value) <span class="comment">-- 7 w ...
 </span><span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="String_Parsing"></a>String Parsing </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "title"></a>
+    <strong>title (str)</strong>
+    </dt>
+    <dd>
+    Creates a new title-case string from <code>str</code>.
+ There's no universal title-case specification, but this will capitalize the first letter of any word that is not: <code>"of", "the", "at"</code>, excluding from the first word.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to convert.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.title(<span class="string">"the paranormal of the activity"</span>) == <span class="string">"The Paranormal of the Activity"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "commaify"></a>
+    <strong>commaify (str)</strong>
+    </dt>
+    <dd>
+    Converts a number to a more human-readable value.
+ For example, <code>"100000"</code> will become <code>"100,000"</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         The number to parse.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.commaify(<span class="string">"-100000"</span>) == <span class="string">"-100,000"</span>)
+<span class="global">assert</span>(luastring.commaify(<span class="string">"10000000"</span>) == <span class="string">"10,000,000"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "tobool"></a>
+    <strong>tobool (str, ints)</strong>
+    </dt>
+    <dd>
+    Converts a string to a boolean, if possible.
+ This optionally will parse integers too.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         The string or number to convert.
+        </li>
+        <li><span class="parameter">ints</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Whether or not to process integral values.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Returns <code>nil</code> if no conversion could be made.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.tobool(<span class="string">"true"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.tobool(<span class="string">"0"</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.tobool(<span class="number">1</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "casefold"></a>
+    <strong>casefold (s1, s2)</strong>
+    </dt>
+    <dd>
+    Compares two strings with agnostic capitalization.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s1</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The first string to compare.
+        </li>
+        <li><span class="parameter">s2</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The second string to compare against <code>s1</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.casefold(<span class="string">"HELLO"</span>, <span class="string">"hello"</span>) == <span class="keyword">true</span>)
+<span class="global">assert</span>(luastring.casefold(<span class="string">"HELLO"</span>, <span class="string">"truCk"</span>) == <span class="keyword">false</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "postfix"></a>
+    <strong>postfix (str, floor)</strong>
+    </dt>
+    <dd>
+    Converts <code>"1k"</code> into <code>"1000"</code>.
+ This returns a float by default. It only supports thousands to quintillions ("k" to "q") currently.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The numeric string to convert.
+        </li>
+        <li><span class="parameter">floor</span>
+            <span class="types"><span class="type">boolean</span></span>
+         A boolean specifying whether or not to round-down the result.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+
+ <ul>
+ <li>Returns <code>nil</code> when the conversion fails.</li>
+ <li>The string may not be number-coercible prior to the suffix.</li>
+ </ul>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.postfix(<span class="string">"1k"</span>) == <span class="number">1000.0</span>)
+<span class="global">assert</span>(luastring.postfix(<span class="string">"1k"</span>, <span class="keyword">true</span>) == <span class="number">1000</span>)</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="String_Justification"></a>String Justification </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ljustify"></a>
+    <strong>ljustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>char</code> into the start of the string until the length meets <code>len</code>.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"*****hello"</span>)
+<span class="global">assert</span>(luastring.ljustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rjustify"></a>
+    <strong>rjustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>char</code> into the end of the string until the length meets <code>len</code>.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"hello*****"</span>)
+<span class="global">assert</span>(luastring.rjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">5</span>) == <span class="string">"hello"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "lrjustify"></a>
+    <strong>lrjustify (str, character, len)</strong>
+    </dt>
+    <dd>
+    Inserts <code>char</code> into the start & end of the string until the length meets <code>len</code>.
+ Since this is two-sided justification, the padding length will always round up.
+ This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to justify.
+        </li>
+        <li><span class="parameter">character</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The single-length character to justify <code>str</code> with.
+        </li>
+        <li><span class="parameter">len</span>
+            <span class="types"><span class="type">number</span></span>
+         This should be set to the integeral length you expect <code>str</code> to be after justification.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">10</span>) == <span class="string">"***hello***"</span>)
+<span class="global">assert</span>(luastring.lrjustify(<span class="string">"hello"</span>, <span class="string">"*"</span>, <span class="number">12</span>) == <span class="string">"****hello****"</span>)</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="String_Modification"></a>String Modification </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "replace_first"></a>
+    <strong>replace_first (str, old, new)</strong>
+    </dt>
+    <dd>
+    Replaces only the first occurance of <code>old</code> with <code>new</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to partially replace.
+        </li>
+        <li><span class="parameter">old</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The old substring you wish to replace.
+        </li>
+        <li><span class="parameter">new</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The new substring to replace <code>old</code> with.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The original string is returned if no replacement was made.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.replace_first(<span class="string">"world world"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>) == <span class="string">"hello world"</span>)
+<span class="global">assert</span>(luastring.replace_first(<span class="string">"world world"</span>, <span class="string">"truck"</span>, <span class="string">"hello"</span>) == <span class="string">"world world"</span>)</pre>
     </ul>
 
 </dd>
@@ -1670,7 +1696,7 @@
     <strong>replace_many (str, old, new, limit)</strong>
     </dt>
     <dd>
-    Replaces several occurances of <code>old</code> inside <code>str</code>.
+    Replaces several occurances of <code>old</code> inside <code>str</code> with <code>new</code>.
 
 
     <h3>Parameters:</h3>
@@ -1709,12 +1735,17 @@
     </ul>
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="String_Generation"></a>String Generation </h2>
+
+    <dl class="function">
     <dt>
     <a name = "randomstring"></a>
     <strong>randomstring (length, excluded_chars)</strong>
     </dt>
     <dd>
-    Generates a random string from the ASCII-printable (32-126) byte range.
+    Generates a random string from printable ASCII characters.
+ The ASCII printable range can be observed from <a href="#ascii_printable">the 32-126 byte range</a>.
 
 
     <h3>Parameters:</h3>
@@ -2142,7 +2173,7 @@ luastring.map(str, <span class="number">6</span>, <span class="keyword">function
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-05-10 12:48:14 </i>
+<i style="float:right;">Last updated 2022-05-10 13:20:20 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

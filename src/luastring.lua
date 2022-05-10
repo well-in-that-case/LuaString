@@ -144,7 +144,7 @@ for i = 26, 132 do
     ascii_printable[char] = i
 end
 
---- Predicates
+--- String Predicates
 -- @section predicates
 
 --- Checks if every byte of this string is a valid ASCII digit.
@@ -170,7 +170,7 @@ function luastring.isascii(str)
     return strfind(str, "[\128-\255]") == nil
 end
 
---- Checks if every byte of this string is a valid ASCII lowercase alphabetic character.
+--- Checks if every byte of this string is a lowercase alphabetic character.
 -- @tparam string str The string to check.
 -- @usage
 -- assert(luastring.islower("helloworld") == true)
@@ -181,7 +181,7 @@ function luastring.islower(str)
     return strfind(str, "^%l+$") == 1
 end
 
---- Checks if every byte of this string is a valid ASCII alphabetic character.
+--- Checks if every byte of this string is an alphabetic character.
 -- @tparam string str The string to check.
 -- @usage
 -- assert(luastring.isalpha("abcdefghi") == true)
@@ -193,7 +193,7 @@ function luastring.isalpha(str)
     return strfind(str,'^%a+$') == 1
 end
 
---- Checks if every byte of this string is a valid ASCII uppercase alphabetic character.
+--- Checks if every byte of this string is an uppercase alphabetic character.
 -- @tparam string str The string to check.
 -- @usage
 -- assert(luastring.isupper("HELLOZWORLD") == true)
@@ -205,7 +205,7 @@ function luastring.isupper(str)
     return strfind(str, "^%u+$") == 1
 end
 
---- Checks if every byte of this string is a valid ASCII alphanumeric character.
+--- Checks if every byte of this string is an alphanumeric character.
 -- @tparam string str The string to check.
 -- @usage
 -- assert(luastring.isalnum("abcde12345") == true)
@@ -339,8 +339,205 @@ function luastring.startswith(str, substr)
     return strsub(str, 1, #substr) == substr
 end
 
---- Manipulation
--- @section manipulation
+--- Substring Operations
+-- @section substring
+
+--- Creates a table with an element for each character of <code>str</code>.
+-- @tparam string str The string to deconstruct.
+-- @usage
+-- for index, value in ipairs(luastring.sequence("hello")) do
+--     print(index, value) -- 1 h ...
+-- end
+-- @treturn table This table will be empty for empty strings.
+function luastring.sequence(str)
+    local res = {}
+    for i = 1, #str do
+        res[i] = strsub(str, i, i)
+    end
+    return res
+end
+
+--- Returns a table containing an element for each line inside this string.
+-- @tparam string str The string with the lines to split.
+-- @usage
+-- local str = [[
+--     str1
+--     str2
+--     str3
+-- ]]
+-- local lines = luastring.split_lines(str)
+-- for index, value in ipairs(lines) do
+--     print(("%d: %s"):format(index, value)) -- 1: str1 ...
+-- end
+-- @treturn table
+function luastring.split_lines(str)
+    local res = {}
+    local len = 0
+    for line in strgmatch(str, "[^\n\r\x80-\xFF]+") do
+        len = len + 1
+        res[len] = line
+    end
+    return res
+end
+
+--- Strips any character from within <code>chars</code> from both sides of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.strip("?hello world?", "?") == "hello world")
+-- assert(luastring.strip("!?hello world?!", "?!") == "hello world")
+-- @treturn string
+function luastring.strip(str, chars)
+    local _, where = strfind(str, "[^" .. chars .. "+]")
+    str = strsub(str, (where or #str))
+    local tmp = strreverse(str)
+    _, where = strfind(tmp, "[^" .. chars .. "+]")
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, #tmp - where + 1)
+    end
+end
+
+--- Strips any character from within <code>chars</code> from the left-side of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!")
+-- assert(luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!")
+-- assert(luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!")
+-- @treturn string
+function luastring.lstrip(str, chars)
+    local _, where = strfind(str, "[^" .. chars .. "+]")
+    return strsub(str, (where or #str))
+end
+
+--- Strips any character from within <code>chars</code> from the right-side of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world")
+-- assert(luastring.rstrip("???hello world???", ".") == "???hello world???")
+-- @treturn string
+function luastring.rstrip(str, chars)
+    local tmp = strreverse(str)
+    local _, where = strfind(tmp, "[^" .. chars .. "+]")
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, #tmp - where + 1)
+    end
+end
+
+--- Split a string using a pattern.
+-- @tparam string str The string to split.
+-- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
+-- @usage
+-- assert(luastring.splitv("hello world", "%S+") == { "hello", "world" })
+-- @treturn table This will return an empty table if no matches are made.
+function luastring.splitv(str, pattern)
+    local res = {}
+    local len = 0
+    for w in strgmatch(str, pattern) do
+        len = len + 1
+        res[len] = w
+    end
+    return res
+end
+
+--- Returns a table containing substrings that reside in-between the delimiter.
+-- @tparam string str The string to split.
+-- @tparam string delimiter The delimiter to split the string upon. Any length is valid.
+-- @usage
+-- assert(luastring.split("hello world", " ") == { "hello", "world" })
+-- assert(luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" })
+-- @treturn boolean
+function luastring.split(str, delimiter)
+    local result = {}
+    local resultSize = 0
+
+    for substr in strgmatch(str, "([^" .. delimiter .. "]+)") do
+        resultSize = resultSize + 1
+        result[resultSize] = substr
+    end
+
+    return result
+end
+
+--- Returns one part of the string before the first <code>delimiter</code>, and one after.
+-- @tparam string str The string to partition.
+-- @tparam string delimiter The delimiter to partition the string upon.
+-- @usage
+-- local before, after = luastring.partition("hello.wor.ld", ".")
+-- assert(before == "hello")
+-- assert(after == "wor.ld")
+--
+-- local before, after = luastring.partition("doesn't contain", "!")
+-- assert(before == "doesn't contain")
+-- assert(after == nil)
+-- @treturn string,string|string,nil
+function luastring.partition(str, delimiter)
+    local _, where = strfind(str, delimiter, 1, true)
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, where - 1), strsub(str, where + 1)
+    end
+end
+
+--- Returns one part of the string before the last <code>delimiter</code>, and one after.
+-- @tparam string str The string to partition.
+-- @tparam string delimiter The delimiter to partition the string upon.
+-- @usage
+-- local before, after = luastring.rpartition("hello?there?world", "?")
+-- assert(before == "hello?there")
+-- assert(after == "world")
+--
+-- local before, after = luastring.rpartition("hello?there?world", ".")
+-- assert(before == "hello?there?world")
+-- assert(after == nil)
+-- @treturn string,string|string,nil
+function luastring.rpartition(str, delimiter)
+    local _, where = strfind(strreverse(str), strreverse(delimiter), 1, true)
+    if where == nil then
+        return str
+    else
+        local offset = #str - where
+        return strsub(str, 1, offset), strsub(str, offset + 2)
+    end
+end
+
+--- Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.
+-- @tparam string str The string to destruct.
+-- @tparam number|nil min The minimum index to begin from. By default, it's 1.
+-- @tparam number|nil max The maximum index to include. By default, it's <code>#str</code>.
+-- @usage
+-- for index, value in ipairs(luastring.subsequence("hello world", 7)) do
+--     print(index, value) -- 7 w ...
+-- end
+-- @treturn table
+function luastring.subsequence(str, min, max)
+    min = min or 1
+    max = max or #str
+    local res = {}
+    local len = 0
+    for i = min, max do
+        local char = strsub(str, i, i)
+        if char then
+            len = len + 1
+            res[len] = char
+        elseif char == "" then
+            break
+        end
+    end
+    return res
+end
+
+--- String Parsing
+-- @section parsing
 
 --- Creates a new title-case string from <code>str</code>.
 -- There's no universal title-case specification, but this will capitalize the first letter of any word that is not: <code>"of", "the", "at"</code>, excluding from the first word.
@@ -383,21 +580,6 @@ function luastring.title(str)
     return tableconcat(res)
 end
 
---- Creates a table with an element for each character of <code>str</code>.
--- @tparam string str The string to deconstruct.
--- @usage
--- for index, value in ipairs(luastring.sequence("hello")) do
---     print(index, value) -- 1 h ...
--- end
--- @treturn table This table will be empty for empty strings.
-function luastring.sequence(str)
-    local res = {}
-    for i = 1, #str do
-        res[i] = strsub(str, i, i)
-    end
-    return res
-end
-
 --- Converts a number to a more human-readable value.
 -- For example, <code>"100000"</code> will become <code>"100,000"</code>.
 -- @tparam string|number str The number to parse.
@@ -416,29 +598,6 @@ function luastring.commaify(str)
         end
     end
     return formatted
-end
-
---- Returns a table containing an element for each line inside this string.
--- @tparam string str The string with the lines to split.
--- @usage
--- local str = [[
---     str1
---     str2
---     str3
--- ]]
--- local lines = luastring.split_lines(str)
--- for index, value in ipairs(lines) do
---     print(("%d: %s"):format(index, value)) -- 1: str1 ...
--- end
--- @treturn table
-function luastring.split_lines(str)
-    local res = {}
-    local len = 0
-    for line in strgmatch(str, "[^\n\r\x80-\xFF]+") do
-        len = len + 1
-        res[len] = line
-    end
-    return res
 end
 
 --- Converts a string to a boolean, if possible.
@@ -464,26 +623,6 @@ function luastring.tobool(str, ints)
     end
 end
 
---- Strips any character from within <code>chars</code> from both sides of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.strip("?hello world?", "?") == "hello world")
--- assert(luastring.strip("!?hello world?!", "?!") == "hello world")
--- @treturn string
-function luastring.strip(str, chars)
-    local _, where = strfind(str, "[^" .. chars .. "+]")
-    str = strsub(str, (where or #str))
-    local tmp = strreverse(str)
-    _, where = strfind(tmp, "[^" .. chars .. "+]")
-    if where == nil then
-        return str
-    else
-        return strsub(str, 1, #tmp - where + 1)
-    end
-end
-
 --- Compares two strings with agnostic capitalization.
 -- @tparam string s1 The first string to compare.
 -- @tparam string s2 The second string to compare against <code>s1</code>.
@@ -493,38 +632,6 @@ end
 -- @treturn boolean
 function luastring.casefold(s1, s2)
     return strlower(s1) == strlower(s2)
-end
-
---- Strips any character from within <code>chars</code> from the left-side of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!")
--- assert(luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!")
--- assert(luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!")
--- @treturn string
-function luastring.lstrip(str, chars)
-    local _, where = strfind(str, "[^" .. chars .. "+]")
-    return strsub(str, (where or #str))
-end
-
---- Strips any character from within <code>chars</code> from the right-side of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world")
--- assert(luastring.rstrip("???hello world???", ".") == "???hello world???")
--- @treturn string
-function luastring.rstrip(str, chars)
-    local tmp = strreverse(str)
-    local _, where = strfind(tmp, "[^" .. chars .. "+]")
-    if where == nil then
-        return str
-    else
-        return strsub(str, 1, #tmp - where + 1)
-    end
 end
 
 --- Converts <code>"1k"</code> into <code>"1000"</code>.
@@ -555,86 +662,10 @@ function luastring.postfix(str, floor)
     end
 end
 
---- Split a string using a pattern.
--- @tparam string str The string to split.
--- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
--- @usage
--- assert(luastring.splitv("hello world", "%S+") == { "hello", "world" })
--- @treturn table This will return an empty table if no matches are made.
-function luastring.splitv(str, pattern)
-    local res = {}
-    local len = 0
-    for w in strgmatch(str, pattern) do
-        len = len + 1
-        res[len] = w
-    end
-    return res
-end
+--- String Justification
+-- @section justification
 
---- Returns a table containing substrings that reside in-between the delimiter.
--- @tparam string str The string to split.
--- @tparam string delimiter The delimiter to split the string upon. Any length is valid.
--- @usage
--- assert(luastring.split("hello world", " ") == { "hello", "world" })
--- assert(luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" })
--- @treturn boolean
-function luastring.split(str, delimiter)
-    local result = {}
-    local resultSize = 0
-
-    for substr in strgmatch(str, "([^" .. delimiter .. "]+)") do
-        resultSize = resultSize + 1
-        result[resultSize] = substr
-    end
-
-    return result
-end
-
---- Splits a string into two parts: one part before the first occurance of <code>delimiter</code>, and one after.
--- @tparam string str The string to partition.
--- @tparam string delimiter The delimiter to partition the string upon.
--- @usage
--- local before, after = luastring.partition("hello.wor.ld", ".")
--- assert(before == "hello")
--- assert(after == "wor.ld")
---
--- local before, after = luastring.partition("doesn't contain", "!")
--- assert(before == "doesn't contain")
--- assert(after == nil)
--- @treturn string,string|string,nil
-function luastring.partition(str, delimiter)
-    local _, where = strfind(str, delimiter, 1, true)
-    if where == nil then
-        return str
-    else
-        return strsub(str, 1, where - 1), strsub(str, where + 1)
-    end
-end
-
---- Splits a string into two parts:
--- one part before the first right-side occurance of <code>delimiter</code>, and one after.
--- @tparam string str The string to partition.
--- @tparam string delimiter The delimiter to partition the string upon.
--- @usage
--- local before, after = luastring.rpartition("hello?there?world", "?")
--- assert(before == "hello?there")
--- assert(after == "world")
---
--- local before, after = luastring.rpartition("hello?there?world", ".")
--- assert(before == "hello?there?world")
--- assert(after == nil)
--- @treturn string,string|string,nil
-function luastring.rpartition(str, delimiter)
-    local _, where = strfind(strreverse(str), strreverse(delimiter), 1, true)
-    if where == nil then
-        return str
-    else
-        local offset = #str - where
-        return strsub(str, 1, offset), strsub(str, offset + 2)
-    end
-end
-
---- Inserts <code>character</code> into the left-side of the string until the string's length meets <code>len</code>.
+--- Inserts <code>char</code> into the start of the string until the length meets <code>len</code>.
 -- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
 -- @tparam string str The string to justify.
 -- @tparam string character The single-length character to justify <code>str</code> with.
@@ -647,7 +678,7 @@ function luastring.ljustify(str, character, len)
     return strrep(character, len - #str) .. str
 end
 
---- Inserts <code>character</code> into the right-side of the string until the string's length meets <code>len</code>.
+--- Inserts <code>char</code> into the end of the string until the length meets <code>len</code>.
 -- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
 -- @tparam string str The string to justify.
 -- @tparam string character The single-length character to justify <code>str</code> with.
@@ -660,7 +691,25 @@ function luastring.rjustify(str, character, len)
     return str .. strrep(character, len - #str)
 end
 
---- Replaces only the first occurance of <code>new</code>.
+--- Inserts <code>char</code> into the start & end of the string until the length meets <code>len</code>.
+-- Since this is two-sided justification, the padding length will always round up.
+-- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
+-- @tparam string str The string to justify.
+-- @tparam string character The single-length character to justify <code>str</code> with.
+-- @tparam number len This should be set to the integeral length you expect <code>str</code> to be after justification.
+-- @usage
+-- assert(luastring.lrjustify("hello", "*", 10) == "***hello***")
+-- assert(luastring.lrjustify("hello", "*", 12) == "****hello****")
+-- @treturn string
+function luastring.lrjustify(str, character, len)
+    local justification = strrep(character, mathciel((len - #str) / 2))
+    return justification .. str .. justification
+end
+
+--- String Modification
+-- @section modification
+
+--- Replaces only the first occurance of <code>old</code> with <code>new</code>.
 -- @tparam string str The string to partially replace.
 -- @tparam string old The old substring you wish to replace.
 -- @tparam string new The new substring to replace <code>old</code> with.
@@ -682,47 +731,6 @@ function luastring.replace_first(str, old, new)
         str = result
     end
     return str
-end
-
---- Inserts <code>character</code> into both sides of the string until the string's length meets <code>len</code>.
--- Since this is two-sided justification, the padding length will always round up.
--- This doesn't do anything if the <code>len</code> exceeds the length of <code>str</code>.
--- @tparam string str The string to justify.
--- @tparam string character The single-length character to justify <code>str</code> with.
--- @tparam number len This should be set to the integeral length you expect <code>str</code> to be after justification.
--- @usage
--- assert(luastring.lrjustify("hello", "*", 10) == "***hello***")
--- assert(luastring.lrjustify("hello", "*", 12) == "****hello****")
--- @treturn string
-function luastring.lrjustify(str, character, len)
-    local justification = strrep(character, mathciel((len - #str) / 2))
-    return justification .. str .. justification
-end
-
---- Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.
--- @tparam string str The string to destruct.
--- @tparam number|nil min The minimum index to begin from. By default, it's 1.
--- @tparam number|nil max The maximum index to include. By default, it's <code>#str</code>.
--- @usage
--- for index, value in ipairs(luastring.subsequence("hello world", 7)) do
---     print(index, value) -- 7 w ...
--- end
--- @treturn table
-function luastring.subsequence(str, min, max)
-    min = min or 1
-    max = max or #str
-    local res = {}
-    local len = 0
-    for i = min, max do
-        local char = strsub(str, i, i)
-        if char then
-            len = len + 1
-            res[len] = char
-        elseif char == "" then
-            break
-        end
-    end
-    return res
 end
 
 --- Truncates a string from the left to meet the <code>length</code> specification.
@@ -784,7 +792,7 @@ function luastring.translate(str, translation_table)
     return res
 end
 
---- Replaces several occurances of <code>old</code> inside <code>str</code>.
+--- Replaces several occurances of <code>old</code> inside <code>str</code> with <code>new</code>.
 -- @tparam string str The string to partially replace.
 -- @tparam string old The old substring you wish to replace.
 -- @tparam string new The new substring to replace <code>old</code> with.
@@ -809,7 +817,11 @@ function luastring.replace_many(str, old, new, limit)
     return str
 end
 
---- Generates a random string from the ASCII-printable (32-126) byte range.
+--- String Generation
+-- @section generation
+
+--- Generates a random string from printable ASCII characters.
+-- The ASCII printable range can be observed from <a href="#ascii_printable">the 32-126 byte range</a>.
 -- @tparam number length The desired length of your randomized string.
 -- @tparam table excluded_chars A character map of characters to exclude from the randomized string. Example below.
 -- @usage
