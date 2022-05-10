@@ -3,6 +3,11 @@ An exhaustive extension of string operations for Lua. Designed for maintainabili
 
 Read the <a href="https://well-in-that-case.github.io/LuaString/">documentation</a> here.
 
+# Size
+At the time of writing, the fully-featued LuaString is less than 6kb after minification.
+
+You can view the minified file <a href="https://github.com/well-in-that-case/LuaString/blob/main/bin/minified_luastring.lua">here</a> or inside the `bin` folder.
+
 # Performance
 The performance standard for LuaString is to meet or exceed the runtime performance of Penlight. On average, LuaString seems ~30% faster on all fronts. There will be official benchmark specifications once LuaString continues to mature.
 
