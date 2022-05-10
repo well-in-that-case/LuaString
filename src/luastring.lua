@@ -380,58 +380,6 @@ function luastring.split_lines(str)
     return res
 end
 
---- Strips any character from within <code>chars</code> from both sides of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.strip("?hello world?", "?") == "hello world")
--- assert(luastring.strip("!?hello world?!", "?!") == "hello world")
--- @treturn string
-function luastring.strip(str, chars)
-    local _, where = strfind(str, "[^" .. chars .. "+]")
-    str = strsub(str, (where or #str))
-    local tmp = strreverse(str)
-    _, where = strfind(tmp, "[^" .. chars .. "+]")
-    if where == nil then
-        return str
-    else
-        return strsub(str, 1, #tmp - where + 1)
-    end
-end
-
---- Strips any character from within <code>chars</code> from the left-side of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!")
--- assert(luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!")
--- assert(luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!")
--- @treturn string
-function luastring.lstrip(str, chars)
-    local _, where = strfind(str, "[^" .. chars .. "+]")
-    return strsub(str, (where or #str))
-end
-
---- Strips any character from within <code>chars</code> from the right-side of the string.
--- This stops once a character not meant to be removed is discovered.
--- @tparam string str The string to strip.
--- @tparam string chars A string of characters to strip from <code>str</code>.
--- @usage
--- assert(luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world")
--- assert(luastring.rstrip("???hello world???", ".") == "???hello world???")
--- @treturn string
-function luastring.rstrip(str, chars)
-    local tmp = strreverse(str)
-    local _, where = strfind(tmp, "[^" .. chars .. "+]")
-    if where == nil then
-        return str
-    else
-        return strsub(str, 1, #tmp - where + 1)
-    end
-end
-
 --- Split a string using a pattern.
 -- @tparam string str The string to split.
 -- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
@@ -708,6 +656,58 @@ end
 
 --- String Modification
 -- @section modification
+
+--- Strips any character from within <code>chars</code> from both sides of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.strip("?hello world?", "?") == "hello world")
+-- assert(luastring.strip("!?hello world?!", "?!") == "hello world")
+-- @treturn string
+function luastring.strip(str, chars)
+    local _, where = strfind(str, "[^" .. chars .. "+]")
+    str = strsub(str, (where or #str))
+    local tmp = strreverse(str)
+    _, where = strfind(tmp, "[^" .. chars .. "+]")
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, #tmp - where + 1)
+    end
+end
+
+--- Strips any character from within <code>chars</code> from the left-side of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.lstrip("???!!!hello world???!!!", "!?") == "hello world???!!!")
+-- assert(luastring.lstrip("???!!!hello world???!!!", "?|") == "!!!hello world???!!!")
+-- assert(luastring.lstrip("?b??!!hello world???!!!", "?|") == "b??!!hello world???!!!")
+-- @treturn string
+function luastring.lstrip(str, chars)
+    local _, where = strfind(str, "[^" .. chars .. "+]")
+    return strsub(str, (where or #str))
+end
+
+--- Strips any character from within <code>chars</code> from the right-side of the string.
+-- This stops once a character not meant to be removed is discovered.
+-- @tparam string str The string to strip.
+-- @tparam string chars A string of characters to strip from <code>str</code>.
+-- @usage
+-- assert(luastring.rstrip("!!!hello world!!!", "!") == "!!!hello world")
+-- assert(luastring.rstrip("???hello world???", ".") == "???hello world???")
+-- @treturn string
+function luastring.rstrip(str, chars)
+    local tmp = strreverse(str)
+    local _, where = strfind(tmp, "[^" .. chars .. "+]")
+    if where == nil then
+        return str
+    else
+        return strsub(str, 1, #tmp - where + 1)
+    end
+end
 
 --- Replaces only the first occurance of <code>old</code> with <code>new</code>.
 -- @tparam string str The string to partially replace.
