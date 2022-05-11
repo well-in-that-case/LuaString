@@ -24,6 +24,7 @@ SOFTWARE.
 
 --- An exhaustive extension of string operations for Lua. LuaString is:
 -- <ul>
+-- <li>Zero-dependency.</li>
 -- <li>Permissive (via MIT).</li>
 -- <li>A pure Lua implementation.</li>
 -- <li>Fully compatible with ANSI C, LuaJIT, and Lua 5.1+.</li>
