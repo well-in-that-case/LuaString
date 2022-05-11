@@ -182,6 +182,80 @@ local function test(m)
         it("randomstring", function ()
             assert(#(L.randomstring(41)) == 41)
         end)
+
+        it("sequence", function ()
+            local seq = L.sequence("hello")
+            assert(seq[1] == "h")
+            assert(seq[2] == "e")
+            assert(seq[3] == "l")
+            assert(seq[4] == "l")
+            assert(seq[5] == 'o')
+        end)
+
+        it("casefold", function ()
+            assert(L.casefold("HELLO WORLD", "hello world") == true)
+            assert(L.casefold("HELLO WORLD", "hello worlz") == false)
+        end)
+
+        it("postfix", function ()
+            assert(L.postfix("1k") == 1000.0)
+            assert(L.postfix("1k", true) == 1000)
+            assert(L.postfix("1.56m") == 1560000.0)
+        end)
+
+        it("replace_first", function ()
+            assert(L.replace_first("hello hello", "hello", "world") == "world hello")
+            assert(L.replace_first("hello hello", "truck", "world") == "hello hello")
+        end)
+
+        it("replace_many", function ()
+            assert(L.replace_many("hello hello hello hello", "hello", "world", 2) == "world world hello hello")
+            assert(L.replace_many("hello hello hello hello", "hello", "world", 3) == "world world world hello")
+        end)
+
+        it("lines iterator", function ()
+            local s =
+[[
+    1
+    2
+    3
+    4
+    5
+]]
+            local last = 1
+            for line in L.lines(s) do
+                print(L.strip(line, " "))
+                assert(tonumber(L.strip(line, " ")) == tonumber(tostring(last)))
+                last = last + 1
+            end
+        end)
+
+        it("iter_end iterator", function ()
+            local s = "12345"
+            local abc = 5
+            for char in L.iter_end(s) do
+                assert(tonumber(char) == abc)
+                abc = abc - 1
+            end
+        end)
+
+        it("iter_begin iterator", function ()
+            local s = "12345"
+            local abc = 1
+            for char in L.iter_begin(s) do
+                assert(tonumber(char) == abc)
+                abc = abc + 1
+            end
+        end)
+
+        it("map iterator", function ()
+            local s = "11112222333344445555"
+            local abc = 1111
+            L.map(s, 4, function (chunk)
+                assert(tonumber(chunk) == abc)
+                abc = abc + 1111
+            end)
+        end)
     end)
 end
 
