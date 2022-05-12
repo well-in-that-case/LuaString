@@ -381,6 +381,25 @@ function luastring.split_lines(str)
     return res
 end
 
+--- Split a string by a substring.
+-- @tparam string str The string to split.
+-- @tparam string substr The substring to split the string upon. Any length is valid.
+-- @usage
+-- assert(luastring.split("hello world", " ") == { "hello", "world" })
+-- assert(luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" })
+-- @treturn boolean
+function luastring.split(str, substr)
+    local result = {}
+    local resultSize = 0
+
+    for substr in strgmatch(str, "([^" .. substr .. "]+)") do
+        resultSize = resultSize + 1
+        result[resultSize] = substr
+    end
+
+    return result
+end
+
 --- Split a string using a pattern.
 -- @tparam string str The string to split.
 -- @tparam string pattern The Lua <a href="https://www.lua.org/pil/20.2.html">pattern</a> used for matching.
@@ -397,28 +416,9 @@ function luastring.splitv(str, pattern)
     return res
 end
 
---- Returns a table containing substrings that reside in-between the delimiter.
--- @tparam string str The string to split.
--- @tparam string delimiter The delimiter to split the string upon. Any length is valid.
--- @usage
--- assert(luastring.split("hello world", " ") == { "hello", "world" })
--- assert(luastring.split("hello world, goodbye!", ", ") == { "hello world", "goodbye!" })
--- @treturn boolean
-function luastring.split(str, delimiter)
-    local result = {}
-    local resultSize = 0
-
-    for substr in strgmatch(str, "([^" .. delimiter .. "]+)") do
-        resultSize = resultSize + 1
-        result[resultSize] = substr
-    end
-
-    return result
-end
-
---- Returns one part of the string before the first <code>delimiter</code>, and one after.
+--- Returns one part of the string before the first <code>substr</code> & one after.
 -- @tparam string str The string to partition.
--- @tparam string delimiter The delimiter to partition the string upon.
+-- @tparam string substr The substring to partition the string upon.
 -- @usage
 -- local before, after = luastring.partition("hello.wor.ld", ".")
 -- assert(before == "hello")
@@ -428,8 +428,8 @@ end
 -- assert(before == "doesn't contain")
 -- assert(after == nil)
 -- @treturn string,string|string,nil
-function luastring.partition(str, delimiter)
-    local _, where = strfind(str, delimiter, 1, true)
+function luastring.partition(str, substr)
+    local _, where = strfind(str, substr, 1, true)
     if where == nil then
         return str
     else
@@ -437,9 +437,9 @@ function luastring.partition(str, delimiter)
     end
 end
 
---- Returns one part of the string before the last <code>delimiter</code>, and one after.
+--- Returns one part of the string before the last <code>substr</code> & one after.
 -- @tparam string str The string to partition.
--- @tparam string delimiter The delimiter to partition the string upon.
+-- @tparam string substr The substring to partition the string upon.
 -- @usage
 -- local before, after = luastring.rpartition("hello?there?world", "?")
 -- assert(before == "hello?there")
@@ -449,8 +449,8 @@ end
 -- assert(before == "hello?there?world")
 -- assert(after == nil)
 -- @treturn string,string|string,nil
-function luastring.rpartition(str, delimiter)
-    local _, where = strfind(strreverse(str), strreverse(delimiter), 1, true)
+function luastring.rpartition(str, substr)
+    local _, where = strfind(strreverse(str), strreverse(substr), 1, true)
     if where == nil then
         return str
     else
@@ -483,6 +483,23 @@ function luastring.subsequence(str, min, max)
         end
     end
     return res
+end
+
+--- Returns the substring between <code>substr1</code> & <code>substr2</code>.
+-- @tparam string str The string to search.
+-- @tparam string substr1 The first substring to start with.
+-- @tparam string substr2 The last substring to end with.
+-- @usage
+-- local str = "I want to get the text between START&and&END"
+-- assert(luastring.between_substr(str, "START", "END") == "&and&")
+-- assert(luastring.between_substr(str, "DONT", "XIST") == nil)
+-- @treturn string|nil Returns <code>nil</code> if nothing was found between the substrings.
+function luastring.between_substr(str, substr1, substr2)
+    local _1, substr1_idx = strfind(str, substr1, 1, true)
+    local _2, substr2_idx = strfind(str, substr2, substr1_idx, true)
+    if substr1_idx ~= nil and substr2_idx ~= nil then
+        return strsub(str, substr1_idx + 1, substr2_idx - #substr2)
+    end
 end
 
 --- String Parsing

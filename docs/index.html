@@ -146,24 +146,28 @@
 	<td class="summary">Returns a table containing an element for each line inside this string.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#split">split (str, substr)</a></td>
+	<td class="summary">Split a string by a substring.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#splitv">splitv (str, pattern)</a></td>
 	<td class="summary">Split a string using a pattern.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#split">split (str, delimiter)</a></td>
-	<td class="summary">Returns a table containing substrings that reside in-between the delimiter.</td>
+	<td class="name" nowrap><a href="#partition">partition (str, substr)</a></td>
+	<td class="summary">Returns one part of the string before the first <code>substr</code> & one after.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#partition">partition (str, delimiter)</a></td>
-	<td class="summary">Returns one part of the string before the first <code>delimiter</code>, and one after.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rpartition">rpartition (str, delimiter)</a></td>
-	<td class="summary">Returns one part of the string before the last <code>delimiter</code>, and one after.</td>
+	<td class="name" nowrap><a href="#rpartition">rpartition (str, substr)</a></td>
+	<td class="summary">Returns one part of the string before the last <code>substr</code> & one after.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#subsequence">subsequence (str, min, max)</a></td>
 	<td class="summary">Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#between_substr">between_substr (str, substr1, substr2)</a></td>
+	<td class="summary">Returns the substring between <code>substr1</code> & <code>substr2</code>.</td>
 	</tr>
 </table>
 <h2><a href="#String_Parsing">String Parsing </a></h2>
@@ -908,6 +912,42 @@
 
 </dd>
     <dt>
+    <a name = "split"></a>
+    <strong>split (str, substr)</strong>
+    </dt>
+    <dd>
+    Split a string by a substring.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to split.
+        </li>
+        <li><span class="parameter">substr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The substring to split the string upon. Any length is valid.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">assert</span>(luastring.split(<span class="string">"hello world"</span>, <span class="string">" "</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> })
+<span class="global">assert</span>(luastring.split(<span class="string">"hello world, goodbye!"</span>, <span class="string">", "</span>) == { <span class="string">"hello world"</span>, <span class="string">"goodbye!"</span> })</pre>
+    </ul>
+
+</dd>
+    <dt>
     <a name = "splitv"></a>
     <strong>splitv (str, pattern)</strong>
     </dt>
@@ -943,47 +983,11 @@
 
 </dd>
     <dt>
-    <a name = "split"></a>
-    <strong>split (str, delimiter)</strong>
-    </dt>
-    <dd>
-    Returns a table containing substrings that reside in-between the delimiter.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The string to split.
-        </li>
-        <li><span class="parameter">delimiter</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The delimiter to split the string upon. Any length is valid.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-
-    </ol>
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="global">assert</span>(luastring.split(<span class="string">"hello world"</span>, <span class="string">" "</span>) == { <span class="string">"hello"</span>, <span class="string">"world"</span> })
-<span class="global">assert</span>(luastring.split(<span class="string">"hello world, goodbye!"</span>, <span class="string">", "</span>) == { <span class="string">"hello world"</span>, <span class="string">"goodbye!"</span> })</pre>
-    </ul>
-
-</dd>
-    <dt>
     <a name = "partition"></a>
-    <strong>partition (str, delimiter)</strong>
+    <strong>partition (str, substr)</strong>
     </dt>
     <dd>
-    Returns one part of the string before the first <code>delimiter</code>, and one after.
+    Returns one part of the string before the first <code>substr</code> & one after.
 
 
     <h3>Parameters:</h3>
@@ -992,9 +996,9 @@
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          The string to partition.
         </li>
-        <li><span class="parameter">delimiter</span>
+        <li><span class="parameter">substr</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The delimiter to partition the string upon.
+         The substring to partition the string upon.
         </li>
     </ul>
 
@@ -1021,10 +1025,10 @@
 </dd>
     <dt>
     <a name = "rpartition"></a>
-    <strong>rpartition (str, delimiter)</strong>
+    <strong>rpartition (str, substr)</strong>
     </dt>
     <dd>
-    Returns one part of the string before the last <code>delimiter</code>, and one after.
+    Returns one part of the string before the last <code>substr</code> & one after.
 
 
     <h3>Parameters:</h3>
@@ -1033,9 +1037,9 @@
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          The string to partition.
         </li>
-        <li><span class="parameter">delimiter</span>
+        <li><span class="parameter">substr</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         The delimiter to partition the string upon.
+         The substring to partition the string upon.
         </li>
     </ul>
 
@@ -1098,6 +1102,47 @@
         <pre class="example"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="global">ipairs</span>(luastring.subsequence(<span class="string">"hello world"</span>, <span class="number">7</span>)) <span class="keyword">do</span>
     <span class="global">print</span>(index, value) <span class="comment">-- 7 w ...
 </span><span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "between_substr"></a>
+    <strong>between_substr (str, substr1, substr2)</strong>
+    </dt>
+    <dd>
+    Returns the substring between <code>substr1</code> & <code>substr2</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to search.
+        </li>
+        <li><span class="parameter">substr1</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The first substring to start with.
+        </li>
+        <li><span class="parameter">substr2</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The last substring to end with.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        Returns <code>nil</code> if nothing was found between the substrings.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> str = <span class="string">"I want to get the text between START&amp;and&amp;END"</span>
+<span class="global">assert</span>(luastring.between_substr(str, <span class="string">"START"</span>, <span class="string">"END"</span>) == <span class="string">"&amp;and&amp;"</span>)
+<span class="global">assert</span>(luastring.between_substr(str, <span class="string">"DONT"</span>, <span class="string">"XIST"</span>) == <span class="keyword">nil</span>)</pre>
     </ul>
 
 </dd>
@@ -1812,14 +1857,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> str = <span class="string">[[
-    hello,
-    world,
-    this,
-    is,
-    an,
-    example.
-]]</span>
+        <pre class="example"><span class="keyword">local</span> str = <span class="string">"hello\nworld"</span>
 <span class="keyword">for</span> word <span class="keyword">in</span> luastring.lines(str) <span class="keyword">do</span>
     <span class="global">print</span>(word)
 <span class="keyword">end</span></pre>
@@ -2174,7 +2212,7 @@ luastring.map(str, <span class="number">6</span>, <span class="keyword">function
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-05-11 13:14:02 </i>
+<i style="float:right;">Last updated 2022-05-12 14:07:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
