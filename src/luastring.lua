@@ -859,14 +859,7 @@ end
 --- An iterator for every line inside this string.
 -- @tparam string str The string to iterate.
 -- @usage
--- local str = [[
---     hello,
---     world,
---     this,
---     is,
---     an,
---     example.
--- ]]
+-- local str = "hello\nworld"
 -- for word in luastring.lines(str) do
 --     print(word)
 -- end
