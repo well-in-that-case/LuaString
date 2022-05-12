@@ -872,7 +872,7 @@ end
 -- end
 -- @treturn function
 function luastring.lines(str)
-    return strgmatch(str, "[^\n\r\x80-\xFF]+")
+    return strgmatch(str, "[^\n\r]+")
 end
 
 --- An iterator for every byte (or in ASCII, character) inside of this string.

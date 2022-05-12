@@ -214,17 +214,9 @@ local function test(m)
         end)
 
         it("lines iterator", function ()
-            local s =
-[[
-    1
-    2
-    3
-    4
-    5
-]]
+            local s = "1\n2\n3\n4\n5\n"
             local last = 1
             for line in L.lines(s) do
-                print(L.strip(line, " "))
                 assert(tonumber(L.strip(line, " ")) == tonumber(tostring(last)))
                 last = last + 1
             end
