@@ -580,25 +580,6 @@ function luastring.casefold(s1, s2)
     return strlower(s1) == strlower(s2)
 end
 
---- Converts a number like <code>1000</code> into <code>"1,000"</code>.
--- @tparam string|number num The number to parse.
--- @usage
--- assert(luastring.format_num(-100000) == "-100,000")
--- assert(luastring.format_num(10000000) == "10,000,000")
--- @treturn string
-function luastring.format_num(num)
-    -- http://lua-users.org/wiki/FormattingNumbers
-    local k
-    local formatted = tostring(num)
-    while true do
-        formatted, k = strgsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-        if k == 0 then
-            break
-        end
-    end
-    return formatted
-end
-
 --- Converts <code>"1k"</code> into <code>"1000"</code>.
 -- This returns a float by default. It only supports thousands to quintillions ("k" to "q") currently.
 -- @tparam string str The numeric string to convert.
@@ -625,6 +606,25 @@ function luastring.postfix(str, floor)
             return res * numb
         end
     end
+end
+
+--- Converts a number like <code>1000</code> into <code>"1,000"</code>.
+-- @tparam string|number num The number to format.
+-- @usage
+-- assert(luastring.format_num(-100000) == "-100,000")
+-- assert(luastring.format_num(10000000) == "10,000,000")
+-- @treturn string
+function luastring.format_num(num)
+    -- http://lua-users.org/wiki/FormattingNumbers
+    local k
+    local formatted = tostring(num)
+    while true do
+        formatted, k = strgsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+        if k == 0 then
+            break
+        end
+    end
+    return formatted
 end
 
 --- String Justification
