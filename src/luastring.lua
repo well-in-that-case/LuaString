@@ -479,7 +479,7 @@ end
 -- end)
 -- assert(str2 == "Keyword1 Keyword2 {t3}")
 function luastring.expand(str, substitutes)
-    local res, _ = string.gsub(str, "{(.-)}", substitutes)
+    local res, _ = strgsub(str, "{(.-)}", substitutes)
     return res
 end
 

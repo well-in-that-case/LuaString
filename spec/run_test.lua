@@ -248,6 +248,17 @@ local function test(m)
                 abc = abc + 1111
             end)
         end)
+
+        it("expand", function ()
+            assert(L.expand("{a} {b} {c}", { a = "hello", b = "world" }) == "hello world {c}")
+            assert(L.expand("{a} {b} {c}", function (keyword)
+                if keyword == "a" then
+                    return "hello"
+                elseif keyword == "b" then
+                    return "world"
+                end
+            end) == "hello world {c}")
+        end)
     end)
 end
 
