@@ -358,7 +358,7 @@ function luastring.sequence(str)
     return res
 end
 
---- Returns a table containing an element for each line inside this string.
+--- Split a string by each line.
 -- @tparam string str The string with the lines to split.
 -- @usage
 -- local str = [[
@@ -456,6 +456,40 @@ function luastring.rpartition(str, substr)
     else
         local offset = #str - where
         return strsub(str, 1, offset), strsub(str, offset + 2)
+    end
+end
+
+--- Position-agnostic, keyword-defined string formatting.
+-- Keyword format specifiers are defined with <code>{this syntax}</code>.
+-- If a lookup or callback returns <code>nil</code>, then the keyword is left unchanged.
+-- @tparam string str The string to format.
+-- @tparam table|function substitutes Either a table or callback to recieve each keyword.
+-- @usage
+-- -- Lookup table example.
+-- local str1 = luastring.expand("{t1} {t2}", { t1 = "hello", t2 = "world" })
+-- assert(str1 == "hello world")
+--
+-- -- Callback example.
+-- local str2 = luastring.expand("{t1} {t2} {t3}", function (keyword)
+--     if keyword == "t1" then
+--         return "Keyword1"
+--     elseif keyword == "t2" then
+--         return "Keyword2"
+--     end
+-- end)
+-- assert(str2 == "Keyword1 Keyword2 {t3}")
+function luastring.expand(str, substitutes)
+    local subst_type = type(substitutes)
+    if subst_type == "function" then
+        local res, _ = string.gsub(str, "{(.-)}", function (c)
+            return substitutes(c)
+        end)
+        return res
+    elseif subst_type == "table" then
+        local res, _ = string.gsub(str, "{(.-)}", substitutes)
+        return res
+    else
+        return str
     end
 end
 
