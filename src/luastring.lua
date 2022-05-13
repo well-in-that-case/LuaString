@@ -461,9 +461,10 @@ end
 
 --- Position-agnostic, keyword-defined string formatting.
 -- Keyword format specifiers are defined with <code>{this syntax}</code>.
+-- If you pass a string as the <code>substitutes</code> argument, then it will serve as a cover-all substitute.
 -- If a lookup or callback returns <code>nil</code>, then the keyword is left unchanged.
 -- @tparam string str The string to format.
--- @tparam table|function substitutes Either a table or callback to recieve each keyword.
+-- @tparam table|string|function substitutes Table or callback to recieve each keyword.
 -- @usage
 -- -- Lookup table example.
 -- local str1 = luastring.expand("{t1} {t2}", { t1 = "hello", t2 = "world" })
@@ -478,6 +479,10 @@ end
 --     end
 -- end)
 -- assert(str2 == "Keyword1 Keyword2 {t3}")
+--
+-- -- String example.
+-- local str3 = luastring.expand("{t1} {t2} {t3}", "abc")
+-- assert(str3 == "abc abc abc")
 function luastring.expand(str, substitutes)
     local res, _ = strgsub(str, "{(.-)}", substitutes)
     return res
