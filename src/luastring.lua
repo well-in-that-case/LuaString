@@ -479,18 +479,8 @@ end
 -- end)
 -- assert(str2 == "Keyword1 Keyword2 {t3}")
 function luastring.expand(str, substitutes)
-    local subst_type = type(substitutes)
-    if subst_type == "function" then
-        local res, _ = string.gsub(str, "{(.-)}", function (c)
-            return substitutes(c)
-        end)
-        return res
-    elseif subst_type == "table" then
-        local res, _ = string.gsub(str, "{(.-)}", substitutes)
-        return res
-    else
-        return str
-    end
+    local res, _ = string.gsub(str, "{(.-)}", substitutes)
+    return res
 end
 
 --- Very similar to <a href="#sequence">sequence</a>, but allows you to specify a range.
