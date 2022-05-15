@@ -6,3 +6,6 @@
 /t.lua
 /tt.lua
 /spec/rnb.lua
+/profiler.o
+/profiler.dll
+/build.lua
