@@ -27,19 +27,20 @@ SOFTWARE.
     All the contents in this file are licensed under the MIT License, found above, or in the LICENSE file.
 */
 
+#include <cmath>
 #include <lua.hpp>
 #include <Windows.h>
 
 static int once(lua_State *L) {
     auto n = lua_gettop(L) - 1;
+    LARGE_INTEGER end;
     LARGE_INTEGER freq;
     LARGE_INTEGER start;
     QueryPerformanceFrequency(&freq);
     QueryPerformanceCounter(&start);
     lua_call(L, n, 0);
-    LARGE_INTEGER end;
     QueryPerformanceCounter(&end);
-    lua_pushnumber(L, static_cast<double>(end.QuadPart - start.QuadPart) / freq.QuadPart);
+    lua_pushnumber(L, static_cast<double>(end.QuadPart - start.QuadPart) / freq.QuadPart * std::pow(10.0, 6.0));
     return 1;
 }
 
