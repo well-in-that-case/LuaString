@@ -31,11 +31,15 @@ SOFTWARE.
 #include <Windows.h>
 
 static int once(lua_State *L) {
-    LARGE_INTEGER frequency; QueryPerformanceFrequency(&frequency);
-    LARGE_INTEGER start; QueryPerformanceCounter(&start);
-    lua_call(L, lua_gettop(L) - 1, 0);
-    LARGE_INTEGER end; QueryPerformanceCounter(&end);
-    lua_pushnumber(L, static_cast<double>(end.QuadPart - start.QuadPart) / frequency.QuadPart);
+    auto n = lua_gettop(L) - 1;
+    LARGE_INTEGER freq;
+    LARGE_INTEGER start;
+    QueryPerformanceFrequency(&freq);
+    QueryPerformanceCounter(&start);
+    lua_call(L, n, 0);
+    LARGE_INTEGER end;
+    QueryPerformanceCounter(&end);
+    lua_pushnumber(L, static_cast<double>(end.QuadPart - start.QuadPart) / freq.QuadPart);
     return 1;
 }
 
