@@ -2,6 +2,7 @@ package = "LuaString"
 version = "1.0.0-1"
 source = {
    url = "https://github.com/well-in-that-case/LuaString.git"
+   tag = "1.0.0"
 }
 description = {
    summary = "An exhaustive extension of string operations for Lua.",
