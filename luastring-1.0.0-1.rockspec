@@ -1,5 +1,5 @@
 package = "LuaString"
-version = "dev-1"
+version = "1.0.0-1"
 source = {
    url = "https://github.com/well-in-that-case/LuaString.git"
 }
