@@ -977,11 +977,27 @@ end
 --- Copy a 1D table.
 -- Largely in case you'd like to slightly modify
 -- <code>ascii_punctuation</code> (or another table) for functions such as <code>randomstring</code>.
--- @tparam string t1 The table to copy.
+-- @tparam table t1 The table to copy.
 -- @treturn table
 function luastring.copy_table(t1)
     local res = {}
     for key, value in pairs(t1) do
+        res[key] = value
+    end
+    return res
+end
+
+--- Merges two tables into a new table.
+-- Largely useful for character exclusions in the <code>randomstring</code> function.
+-- @tparam table t1 The first table to merge.
+-- @tparam table t2 The table to merge with <code>t1</code>.
+-- @treturn table
+function luastring.merge_table(t1, t2)
+    local res = {}
+    for key, value in pairs(t1) do
+        res[key] = value
+    end
+    for key, value in pairs(t2) do
         res[key] = value
     end
     return res
