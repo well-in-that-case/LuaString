@@ -1,7 +1,11 @@
 # LuaString
 An exhaustive extension of string operations for Lua. Designed for maintainability, compatibility, and portability. LuaString is fully compatible with ANSI C, LuaJIT, and Lua 5.1+.
 
-Read the <a href="https://well-in-that-case.github.io/LuaString/">documentation</a> here.
+Read the <a href="https://well-in-that-case.github.io/LuaString/">documentation</a> here.<br>
+Automatically install this module from <a href="https://luarocks.org/modules/well-in-that-case/luastring">Luarocks</a>:
+```
+luarocks install --local luastring
+```
 
 # Size
 At the time of writing, the fully-featued LuaString is less than 6kb after minification.
