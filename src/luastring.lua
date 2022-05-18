@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 --]]
 
---- An exhaustive extension of string operations for Lua. LuaString is:
+--- An extension of string operations for Lua. LuaString is:
 -- <ul>
 -- <li>Zero-dependency.</li>
 -- <li>Permissive (via MIT).</li>
