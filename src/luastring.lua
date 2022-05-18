@@ -31,12 +31,12 @@ SOFTWARE.
 -- <li>Designed for maintainability, compatibility, and portability.</li>
 -- </ul>
 -- <br>
--- The fully-featured module is less than 6kb if you vouch for the <a href="https://github.com/well-in-that-case/LuaString/blob/main/bin/minified_luastring.lua">minified file.</a>
+-- The fully-featured module is only 6kb if you vouch for the <a href="https://github.com/well-in-that-case/LuaString/blob/main/bin/minified_luastring.lua">minified file.</a>
+-- <br>View the repository & source code <a href="https://github.com/well-in-that-case/LuaString">here</a>.
 -- <h1>License</h1>
 -- LuaString is licensed under MIT. <a href="https://github.com/well-in-that-case/LuaString/blob/main/LICENSE">View the terms here.</a>
 -- <br><br><i>LuaString is an extension of the <code>string</code> library:</i>
--- @usage
--- local string = require("luastring")
+-- @usage local string = require("luastring")
 local luastring = {}
 
 local ascii_punctuation = {
